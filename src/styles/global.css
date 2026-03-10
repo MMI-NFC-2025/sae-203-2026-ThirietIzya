@@ -1,1 +1,57 @@
 @import "tailwindcss";
+
+@theme {
+
+    --doré-clair: oklch(0.9672 0.0598 100.23);
+    --gris-claire: oklch(0.7952 0 0);
+    --ivoir: oklch(0.9687 0.0187 96.86);
+    --noir: oklch(0 0 0);
+    --or-profond: oklch(0.7876 0.0981 84.64);
+
+    --font-family: 'Arimo Variable', sans-serif;
+
+    --my-grid: repeat(12, minmax(0, 88px));
+}
+
+@layer base {
+    body {
+        @apply font-[--font-family] text-base leading-normal;
+    }
+
+    h1 {
+        @apply text-5xl leading-tight font-[--font-family] lg:text-6xl;
+    }
+
+    h2 {
+        @apply text-2xl leading-tight font-[--font-family] lg:text-4xl;
+    }
+
+    h3 {
+        @apply my-4 text-xl leading-tight font-[--font-family];
+    }
+}
+
+@layer components {
+    .grille {
+        @apply px-6 lg:grid lg:grid-cols-(--my-grid) lg:justify-center lg:gap-8;
+    }
+}
+
+/* Text Style Variables */
+:root {
+  /* Mode 1 */
+  /* number */
+  --font-size-16: 1rem;
+  --font-size-18: 1.125rem;
+  --font-size-20: 1.25rem;
+  --font-size-24: 1.5rem;
+  --font-weight-regular: 25rem;
+  --letter-spacing-0: 0rem;
+  --line-height-24: 1.5rem;
+  --line-height-27: 1.6875rem;
+  --line-height-30: 1.875rem;
+  --line-height-36: 2.25rem;
+  --list-spacing-0: 0rem;
+  --paragraph-indent-0: 0rem;
+  --paragraph-spacing-0: 0rem;
+}
