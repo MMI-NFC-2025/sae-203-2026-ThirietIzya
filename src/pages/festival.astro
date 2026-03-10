@@ -1,0 +1,191 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const valeurs = [
+  {
+    titre: "Excellence Artistique",
+    description: "Proposer une programmation de qualité exceptionnelle avec les meilleurs artistes internationaux.",
+    icon: "star"
+  },
+  {
+    titre: "Accessibilité",
+    description: "Rendre la musique classique accessible à tous les publics, des mélomanes aux néophytes.",
+    icon: "users"
+  },
+  {
+    titre: "Transmission",
+    description: "Favoriser la découverte et l'apprentissage de la musique classique auprès des jeunes générations.",
+    icon: "book"
+  },
+  {
+    titre: "Innovation",
+    description: "Proposer des formats innovants tout en respectant les traditions du répertoire classique.",
+    icon: "lightbulb"
+  }
+];
+
+const equipe = [
+  {
+    nom: "Élisabeth Rousseau",
+    role: "Directrice Artistique",
+    description: "Passionnée de musique classique depuis l'enfance, elle dirige le festival depuis sa création.",
+    initiales: "ER"
+  },
+  {
+    nom: "Marc Fontaine",
+    role: "Directeur Général",
+    description: "Expert en gestion culturelle, il assure la coordination de l'ensemble du festival.",
+    initiales: "MF"
+  },
+  {
+    nom: "Claire Dubois",
+    role: "Responsable de la Programmation",
+    description: "Violoniste de formation, elle sélectionne les artistes et compose le programme.",
+    initiales: "CD"
+  },
+  {
+    nom: "Antoine Martin",
+    role: "Responsable Communication",
+    description: "Spécialiste du marketing culturel, il assure la visibilité du festival.",
+    initiales: "AM"
+  }
+];
+
+const stats = [
+  { value: "27 ans", label: "d'histoire" },
+  { value: "250+", label: "artistes accueillis" },
+  { value: "400 000+", label: "spectateurs" }
+];
+---
+
+<Layout title="Le Festival | Chorus Symphonia 2025" description="Découvrez l'histoire et les valeurs du Festival Chorus Symphonia, 27 ans de passion pour la musique classique.">
+  <!-- Hero -->
+  <section class="py-20 md:py-32 bg-gradient-to-b from-primary-light to-primary">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="text-gold font-medium tracking-widest uppercase mb-4 text-sm">Notre histoire</p>
+      <h1 class="text-white mb-6">Le Festival</h1>
+      <p class="text-xl text-white/70 max-w-2xl mx-auto">
+        27 ans de passion pour la musique classique
+      </p>
+    </div>
+  </section>
+
+  <!-- Histoire -->
+  <section class="py-20 md:py-32 bg-primary">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-gold font-medium tracking-widest uppercase mb-4 text-sm">Depuis 1998</p>
+          <h2 class="text-white mb-6">Notre Histoire</h2>
+          <div class="space-y-4 text-white/70">
+            <p>
+              Fondé en 1998, le Festival Chorus Symphonia est né de la volonté de créer un événement culturel d'envergure internationale à Paris, célébrant le patrimoine musical classique tout en offrant une scène aux talents contemporains.
+            </p>
+            <p>
+              Au fil des années, le festival s'est imposé comme un rendez-vous incontournable pour les amateurs de musique classique. Chaque édition rassemble plus de 15 000 spectateurs venus du monde entier pour découvrir ou redécouvrir les plus belles oeuvres du répertoire.
+            </p>
+            <p>
+              Grâce à la qualité de sa programmation et à l'excellence de son organisation, Chorus Symphonia a accueilli les plus grands orchestres et solistes internationaux, créant des moments inoubliables dans les salles les plus prestigieuses de Paris.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Stats -->
+        <div class="card p-8 md:p-10">
+          <div class="grid grid-cols-1 gap-8">
+            {stats.map(stat => (
+              <div class="text-center">
+                <p class="text-4xl md:text-5xl font-serif font-bold text-gold mb-2">{stat.value}</p>
+                <p class="text-white/60">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Valeurs -->
+  <section class="py-20 md:py-32 bg-primary-light">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="section-title">
+        <p class="text-gold font-medium tracking-widest uppercase mb-4 text-sm">Ce qui nous guide</p>
+        <h2 class="text-white">Nos Valeurs</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {valeurs.map(valeur => (
+          <div class="card text-center group hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 transition-colors">
+              {valeur.icon === 'star' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+              )}
+              {valeur.icon === 'users' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                </svg>
+              )}
+              {valeur.icon === 'book' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              )}
+              {valeur.icon === 'lightbulb' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              )}
+            </div>
+            <h3 class="text-white mb-3">{valeur.titre}</h3>
+            <p class="text-white/60 text-sm">{valeur.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Équipe -->
+  <section class="py-20 md:py-32 bg-primary">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="section-title">
+        <p class="text-gold font-medium tracking-widest uppercase mb-4 text-sm">Les visages du festival</p>
+        <h2 class="text-white">Notre Équipe</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {equipe.map(membre => (
+          <div class="card text-center group hover:-translate-y-1 transition-all duration-300">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-serif text-gold/70 group-hover:text-gold transition-colors">
+                {membre.initiales}
+              </span>
+            </div>
+            <h3 class="text-white mb-1">{membre.nom}</h3>
+            <p class="text-gold text-sm font-medium mb-3">{membre.role}</p>
+            <p class="text-white/60 text-sm">{membre.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-primary-light">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-white mb-4">Rejoignez-nous pour cette édition exceptionnelle</h2>
+      <p class="text-white/60 mb-8 max-w-2xl mx-auto">
+        Vivez des moments inoubliables avec les plus grands artistes de la scène classique internationale.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/programme" class="btn-primary text-base px-8 py-4">
+          Découvrir le programme
+        </a>
+        <a href="/#billetterie" class="btn-secondary text-base px-8 py-4">
+          Réserver mes places
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

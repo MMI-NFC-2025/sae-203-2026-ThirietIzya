@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const artistes = [
+  {
+    nom: "Anne Akiko Meyers",
+    role: "Violoniste",
+    description: "Considérée comme l'une des violonistes les plus captivantes de sa génération, Anne Akiko Meyers se distingue par son jeu expressif et sa présence artistique remarquable.",
+    initiales: "AM"
+  },
+  {
+    nom: "Eldbjørg Hemsing",
+    role: "Violoniste",
+    description: "Violoniste norvégienne acclamée, Eldbjørg Hemsing est reconnue pour son jeu lumineux et son engagement artistique toujours empreint de sensibilité et d'audace.",
+    initiales: "EH"
+  },
+  {
+    nom: "Thomas Adès",
+    role: "Compositeur & Chef d'orchestre",
+    description: "Compositeur, chef d'orchestre et pianiste parmi les plus influents de sa génération, Thomas Adès est reconnu pour son langage musical novateur et son exceptionnelle maîtrise artistique.",
+    initiales: "TA"
+  },
+  {
+    nom: "John Adams",
+    role: "Chef d'orchestre",
+    description: "Compositeur et chef d'orchestre américain, John Adams est l'un des compositeurs vivants les plus joués au monde, connu pour son style minimaliste et post-minimaliste.",
+    initiales: "JA"
+  },
+  {
+    nom: "Ludovico Einaudi",
+    role: "Pianiste & Compositeur",
+    description: "Compositeur et pianiste emblématique de la scène musicale contemporaine, Ludovico Einaudi est reconnu pour son langage épuré et son pouvoir évocateur qui touche un public mondial.",
+    initiales: "LE"
+  },
+  {
+    nom: "Daniel Barenboim",
+    role: "Chef d'orchestre & Pianiste",
+    description: "Virtuose du piano et chef d'orchestre légendaire, Daniel Barenboim est une figure majeure de la musique classique mondiale, fondateur du West-Eastern Divan Orchestra.",
+    initiales: "DB"
+  },
+  {
+    nom: "Lang Lang",
+    role: "Pianiste",
+    description: "Pianiste virtuose chinois de renommée internationale, Lang Lang est connu pour sa technique éblouissante et son interprétation passionnée des grandes oeuvres du répertoire.",
+    initiales: "LL"
+  },
+  {
+    nom: "Hilary Hahn",
+    role: "Violoniste",
+    description: "Violoniste américaine acclamée par la critique, Hilary Hahn est reconnue pour sa technique impeccable, sa musicalité profonde et son engagement envers la musique contemporaine.",
+    initiales: "HH"
+  }
+];
+---
+
+<Layout title="Artistes | Chorus Symphonia 2025" description="Découvrez les artistes exceptionnels qui feront vibrer le Festival Chorus Symphonia 2025.">
+  <!-- Hero -->
+  <section class="py-20 md:py-32 bg-gradient-to-b from-primary-light to-primary">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="text-gold font-medium tracking-widest uppercase mb-4 text-sm">Édition 2025</p>
+      <h1 class="text-white mb-6">Artistes</h1>
+      <p class="text-xl text-white/70 max-w-2xl mx-auto">
+        Rencontrez les artistes exceptionnels qui feront vibrer le festival
+      </p>
+    </div>
+  </section>
+
+  <!-- Artistes Grid -->
+  <section class="py-20 md:py-32 bg-primary">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {artistes.map(artiste => (
+          <article class="card group hover:-translate-y-2 transition-all duration-300">
+            <!-- Avatar placeholder -->
+            <div class="w-full aspect-square rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 mb-6 flex items-center justify-center overflow-hidden">
+              <span class="text-6xl font-serif text-gold/50 group-hover:text-gold/70 transition-colors">
+                {artiste.initiales}
+              </span>
+            </div>
+            
+            <h3 class="text-white text-xl mb-1 group-hover:text-gold transition-colors">
+              {artiste.nom}
+            </h3>
+            <p class="text-gold text-sm font-medium mb-4">{artiste.role}</p>
+            <p class="text-white/60 text-sm leading-relaxed mb-6">
+              {artiste.description}
+            </p>
+            
+            <a href="#" class="text-gold text-sm font-medium flex items-center gap-2 group-hover:gap-3 transition-all">
+              En savoir plus
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-primary-light">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-white mb-4">Découvrez le programme</h2>
+      <p class="text-white/60 mb-8 max-w-2xl mx-auto">
+        Retrouvez tous ces artistes dans notre programmation exceptionnelle.
+      </p>
+      <a href="/programme" class="btn-primary text-base px-8 py-4">
+        Voir le programme complet
+      </a>
+    </div>
+  </section>
+</Layout>

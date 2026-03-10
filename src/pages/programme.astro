@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const concerts = [
+  {
+    date: "15 Juin",
+    title: "Concert d'ouverture - Symphonie n°9 de Beethoven",
+    lieu: "Opéra National de Paris - Grande Salle",
+    heure: "20h00",
+    description: "Une interprétation magistrale de l'Hymne à la joie pour inaugurer le festival",
+    direction: "Gustavo Dudamel",
+    orchestre: "Orchestre Philharmonique de Paris"
+  },
+  {
+    date: "16 Juin",
+    title: "Les Quatre Saisons de Vivaldi",
+    lieu: "Théâtre des Champs-Élysées",
+    heure: "20h00",
+    description: "Une célébration baroque avec l'un des plus grands violonistes de notre temps",
+    violon: "Anne-Sophie Mutter",
+    ensemble: "Ensemble Baroque de Paris"
+  },
+  {
+    date: "17 Juin",
+    title: "Concerto pour piano n°2 de Rachmaninov",
+    lieu: "Salle Pleyel",
+    heure: "20h00",
+    description: "Virtuosité et émotion dans l'une des oeuvres les plus appréciées du répertoire",
+    piano: "Lang Lang",
+    direction: "Simon Rattle"
+  },
+  {
+    date: "18 Juin",
+    title: "Le Sacre du Printemps - Stravinsky",
+    lieu: "Opéra National de Paris - Grande Salle",
+    heure: "20h00",
+    description: "Une oeuvre révolutionnaire qui a marqué l'histoire de la musique",
+    direction: "Esa-Pekka Salonen",
+    orchestre: "Orchestre de Paris"
+  },
+  {
+    date: "19 Juin",
+    title: "Requiem de Mozart",
+    lieu: "Basilique Sainte-Clotilde",
+    heure: "20h00",
+    description: "Une interprétation intimiste dans un cadre exceptionnel",
+    direction: "Philippe Herreweghe",
+    choeur: "Collegium Vocale Gent"
+  },
+  {
+    date: "20 Juin",
+    title: "Symphonie n°5 de Mahler",
+    lieu: "Théâtre des Champs-Élysées",
+    heure: "20h00",
+    description: "Une oeuvre monumentale portée par l'un des plus grands orchestres du monde",
+    direction: "Valery Gergiev",
+    orchestre: "Mariinsky Orchestra"
+  },
+  {
+    date: "21 Juin",
+    title: "Concerto pour violon de Tchaïkovski",
+    lieu: "Salle Pleyel",
+    heure: "20h00",
+    description: "Passion russe et virtuosité technique dans un concerto légendaire",
+    violon: "Hilary Hahn",
+    direction: "Yannick Nézet-Séguin"
+  },
+  {
+    date: "22 Juin",
+    title: "Concert de clôture - Symphonie n°7 de Beethoven",
+    lieu: "Opéra National de Paris - Grande Salle",
+    heure: "20h00",
+    description: "Une conclusion triomphale avec l'une des symphonies les plus exaltantes",
+    direction: "Daniel Barenboim",
+    orchestre: "West-Eastern Divan Orchestra"
+  }
+];
+---
+
+<Layout title="Programme | Chorus Symphonia 2025" description="Découvrez le programme complet du Festival Chorus Symphonia 2025 : 8 soirées exceptionnelles de musique classique à Paris.">
+  <!-- Hero -->
+  <section class="py-20 md:py-32 bg-gradient-to-b from-primary-light to-primary">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="text-gold font-medium tracking-widest uppercase mb-4 text-sm">27ème édition</p>
+      <h1 class="text-white mb-6">Programme</h1>
+      <p class="text-xl text-white/70 max-w-2xl mx-auto">
+        Découvrez les concerts exceptionnels de cette 27ème édition
+      </p>
+    </div>
+  </section>
+
+  <!-- Programme -->
+  <section class="py-20 md:py-32 bg-primary">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="space-y-8">
+        {concerts.map((concert, index) => (
+          <article class="card group hover:-translate-y-1 transition-all duration-300">
+            <div class="flex flex-col md:flex-row md:items-start gap-6">
+              <!-- Date -->
+              <div class="flex-shrink-0 text-center md:text-left">
+                <div class="inline-flex flex-col items-center md:items-start px-4 py-2 bg-gold/10 rounded-lg border border-gold/20">
+                  <span class="text-gold font-bold text-lg">{concert.date}</span>
+                  <span class="text-white/60 text-sm">{concert.heure}</span>
+                </div>
+              </div>
+              
+              <!-- Content -->
+              <div class="flex-1">
+                <h3 class="text-white text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors">
+                  {concert.title}
+                </h3>
+                <p class="text-white/60 text-sm mb-3 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  {concert.lieu}
+                </p>
+                <p class="text-white/70 mb-4">{concert.description}</p>
+                
+                <!-- Details -->
+                <div class="flex flex-wrap gap-4 text-sm mb-6">
+                  {concert.direction && (
+                    <span class="text-white/60">
+                      <span class="text-gold">Direction :</span> {concert.direction}
+                    </span>
+                  )}
+                  {concert.orchestre && (
+                    <span class="text-white/60">
+                      <span class="text-gold">Orchestre :</span> {concert.orchestre}
+                    </span>
+                  )}
+                  {concert.violon && (
+                    <span class="text-white/60">
+                      <span class="text-gold">Violon solo :</span> {concert.violon}
+                    </span>
+                  )}
+                  {concert.piano && (
+                    <span class="text-white/60">
+                      <span class="text-gold">Piano :</span> {concert.piano}
+                    </span>
+                  )}
+                  {concert.ensemble && (
+                    <span class="text-white/60">
+                      <span class="text-gold">Ensemble :</span> {concert.ensemble}
+                    </span>
+                  )}
+                  {concert.choeur && (
+                    <span class="text-white/60">
+                      <span class="text-gold">Choeur :</span> {concert.choeur}
+                    </span>
+                  )}
+                </div>
+                
+                <a href="#" class="btn-primary text-sm">
+                  Réserver
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-primary-light">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-white mb-4">Pass Festival</h2>
+      <p class="text-white/60 mb-8 max-w-2xl mx-auto">
+        Profitez de tous les concerts avec notre pass festival à tarif avantageux.
+      </p>
+      <a href="#" class="btn-primary text-base px-8 py-4">
+        Acheter le pass festival
+      </a>
+    </div>
+  </section>
+</Layout>
