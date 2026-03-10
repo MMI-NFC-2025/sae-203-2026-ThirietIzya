@@ -1,0 +1,97 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const scenes = [
+  {
+    id: 'opera',
+    name: 'Opéra National de Paris - Grande Salle',
+    image: '/assets/img/hero_template_scene.webp',
+    concerts: 5,
+    capacity: 2200,
+    address: 'Place de l’Opéra, 75009 Paris',
+    access: 'Métro Opéra (lignes 3, 7, 8), RER A Auber',
+    description: "La salle principale de l'Opéra National de Paris, connue mondialement pour son acoustique exceptionnelle."
+  },
+  {
+    id: 'garnier',
+    name: 'Salle Garnier',
+    image: '/assets/img/salle_garnier.webp',
+    concerts: 2,
+    capacity: 600,
+    address: '15 Avenue Montaigne, 75008 Paris',
+    access: 'Métro Alma-Marceau (ligne 9), RER C Pont de l’Alma',
+    description: "Une salle intimiste parfaite pour les récitals et la musique de chambre. Construite en 1862 et rénovée en 2005."
+  },
+  {
+    id: 'glaces',
+    name: 'Salon des Glaces',
+    image: '/assets/img/salle_des_glaces.webp',
+    concerts: 1,
+    capacity: 150,
+    address: 'Place de la Concorde, 75008 Paris',
+    access: 'Métro Concorde (lignes 1, 8, 12)',
+    description: "Un lieu d'exception pour des concerts intimistes dans un cadre historique remarquable."
+  }
+];
+---
+
+<Layout title="Scènes | Chorus Symphonia 2025">
+
+  <!-- hero -->
+  <section class="relative h-[50vh] flex items-center justify-center text-center text-ivoir overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="/assets/img/hero_scenes.webp" alt="Nos scènes" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-noir/60"></div>
+    </div>
+    <div class="relative z-10 px-6">
+      <h1 class="text-4xl lg:text-6xl font-serif italic mb-4">Nos Scènes</h1>
+      <p class="text-or-profond uppercase tracking-[0.3em] text-xs lg:text-sm font-medium">
+        Trois lieux d'exception pour vivre la musique classique
+      </p>
+    </div>
+  </section>
+
+  <!-- list -->
+  <section class="bg-ivoir py-20 lg:py-32">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {scenes.map((scene) => (
+          <article class="group bg-white overflow-hidden shadow-sm border border-noir/5 rounded-lg transition-all hover:shadow-xl">
+            <div class="relative">
+              <img
+                src={scene.image}
+                alt={scene.name}
+                class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <span class="absolute top-4 right-4 bg-or-profond text-noir text-[10px] uppercase px-2 py-1 rounded-full">
+                {scene.concerts} concerts
+              </span>
+            </div>
+            <div class="p-6">
+              <h3 class="font-serif text-xl mb-2 text-noir">{scene.name}</h3>
+              <div class="flex flex-col gap-2 mb-2">
+                <div class="flex items-center gap-2 text-gris-claire">
+                  <img src="/assets/icon/map_dore.svg" alt="adresse" class="w-4 h-4" />
+                  <span>{scene.address}</span>
+                </div>
+                <div class="flex items-center gap-2 text-gris-claire">
+                  <img src="/assets/icon/equipe_dore.svg" alt="places" class="w-4 h-4" />
+                  <span>{scene.capacity} places</span>
+                </div>
+              </div>
+              <p class="text-sm text-gris-claire mb-4">{scene.description}</p>
+              <p class="text-sm text-gris-claire mb-4"><strong>Accès :</strong> {scene.access}</p>
+              <a
+                href={`/scenes/${scene.id}`}
+                class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/30 pb-1 hover:border-or-profond transition-all"
+              >
+                En savoir plus →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
