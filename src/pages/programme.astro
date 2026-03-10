@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Liste complète des 8 soirées (basée sur ton HTML)
+const program = [
+  {
+    day: "15",
+    month: "Juin",
+    title: "Concert d'ouverture — Symphonie n°9 de Beethoven",
+    venue: "Opéra National de Paris — Grande Salle",
+    time: "20h00",
+    desc: "Une interprétation magistrale de l'Hymne à la joie pour inaugurer le festival.",
+    artists: "Direction : Gustavo Dudamel | Orchestre Philharmonique de Paris"
+  },
+  {
+    day: "16",
+    month: "Juin",
+    title: "Les Quatre Saisons de Vivaldi",
+    venue: "Théâtre des Champs-Élysées",
+    time: "20h00",
+    desc: "Une célébration baroque avec l'un des plus grands violonistes de notre temps.",
+    artists: "Violon solo : Anne-Sophie Mutter | Ensemble Baroque de Paris"
+  },
+  {
+    day: "17",
+    month: "Juin",
+    title: "Concerto pour piano n°2 de Rachmaninov",
+    venue: "Salle Pleyel",
+    time: "20h00",
+    desc: "Virtuosité et émotion dans l'une des œuvres les plus appréciées du répertoire.",
+    artists: "Piano : Lang Lang | Direction : Simon Rattle"
+  },
+  {
+    day: "18",
+    month: "Juin",
+    title: "Le Sacre du Printemps — Stravinsky",
+    venue: "Opéra National de Paris",
+    time: "20h00",
+    desc: "Une œuvre révolutionnaire qui a marqué l'histoire de la musique moderne.",
+    artists: "Direction : Esa-Pekka Salonen | Orchestre de Paris"
+  },
+  {
+    day: "19",
+    month: "Juin",
+    title: "Requiem de Mozart",
+    venue: "Basilique Sainte-Clotilde",
+    time: "20h00",
+    desc: "Une interprétation intimiste et sacrée dans un cadre architectural exceptionnel.",
+    artists: "Direction : Philippe Herreweghe | Collegium Vocale Gent"
+  },
+  {
+    day: "20",
+    month: "Juin",
+    title: "Symphonie n°5 de Mahler",
+    venue: "Théâtre des Champs-Élysées",
+    time: "20h00",
+    desc: "Une œuvre monumentale portée par l'un des plus grands orchestres du monde.",
+    artists: "Direction : Valery Gergiev | Mariinsky Orchestra"
+  },
+  {
+    day: "21",
+    month: "Juin",
+    title: "Concerto pour violon de Tchaïkovski",
+    venue: "Salle Pleyel",
+    time: "20h00",
+    desc: "Passion russe et virtuosité technique dans un concerto légendaire.",
+    artists: "Violon : Hilary Hahn | Direction : Yannick Nézet-Séguin"
+  },
+  {
+    day: "22",
+    month: "Juin",
+    title: "Clôture — Symphonie n°7 de Beethoven",
+    venue: "Opéra National de Paris",
+    time: "20h00",
+    desc: "Une conclusion triomphale pour célébrer la fin de cette 27ème édition.",
+    artists: "Direction : Daniel Barenboim | West-Eastern Divan Orchestra"
+  }
+];
+
+const pricing = [
+  { name: "Billet Simple", price: "65€", desc: "Une soirée au choix", color: "bg-white" },
+  { name: "Pass 3 Jours", price: "150€", desc: "3 concerts au choix", color: "bg-or-profond text-noir", featured: true },
+  { name: "Pass Festival", price: "380€", desc: "Les 8 soirées complètes", color: "bg-white" }
+];
+---
+
+<Layout title="Programme | Chorus Symphonia 2025">
+
+  <section class="relative h-[50vh] flex items-center justify-center text-center text-ivoir overflow-hidden bg-noir">
+    <div class="absolute inset-0 z-0">
+      <img src="/assets/img/hero_programme.webp" alt="Orchestre symphonique" class="w-full h-full object-cover opacity-50" />
+    </div>
+    <div class="relative z-10 px-6">
+      <p class="text-or-profond uppercase tracking-[0.4em] mb-4 text-xs font-bold">Édition 2025</p>
+      <h1 class="text-4xl lg:text-6xl font-serif italic leading-tight">Programme</h1>
+    </div>
+  </section>
+
+  <section class="bg-ivoir py-12 border-b border-noir/5">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="bg-white p-6 lg:p-10 shadow-sm flex flex-col md:flex-row gap-4 items-end">
+        <div class="w-full">
+          <label class="block text-[10px] uppercase font-bold tracking-widest text-gris-claire mb-2">Choisir une date</label>
+          <select class="w-full bg-ivoir/50 border-none px-4 py-3 text-sm outline-none focus:ring-1 focus:ring-or-profond cursor-pointer">
+            <option>Toutes les dates</option>
+            {program.map(p => <option>{p.day} Juin</option>)}
+          </select>
+        </div>
+        <div class="w-full">
+          <label class="block text-[10px] uppercase font-bold tracking-widest text-gris-claire mb-2">Choisir un lieu</label>
+          <select class="w-full bg-ivoir/50 border-none px-4 py-3 text-sm outline-none focus:ring-1 focus:ring-or-profond cursor-pointer">
+            <option>Toutes les scènes</option>
+            <option>Opéra National</option>
+            <option>Théâtre des Champs-Élysées</option>
+            <option>Salle Pleyel</option>
+          </select>
+        </div>
+        <button class="w-full md:w-auto bg-or-profond text-noir px-10 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-noir hover:text-ivoir transition-all shadow-md">
+          Rechercher
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ivoir py-16 lg:py-24">
+    <div class="flex flex-col gap-10 px-6 lg:grille lg:gap-y-12">
+      
+      {program.map((concert) => (
+        <article class="lg:col-span-12 bg-white flex flex-col md:flex-row shadow-sm hover:shadow-xl transition-all duration-500 border border-noir/5 overflow-hidden group">
+          <div class="bg-noir text-ivoir p-8 flex flex-col items-center justify-center md:min-w-[160px] border-b-4 md:border-b-0 md:border-r-4 border-or-profond">
+            <span class="text-4xl font-serif italic text-or-profond leading-none">{concert.day}</span>
+            <span class="uppercase tracking-[0.3em] text-[10px] mt-2 font-bold">{concert.month}</span>
+          </div>
+          
+          <div class="p-8 lg:p-12 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-2">
+                <h3 class="font-serif text-2xl lg:text-3xl italic text-noir leading-tight">{concert.title}</h3>
+                <span class="bg-ivoir text-noir px-4 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full shrink-0">{concert.time}</span>
+              </div>
+              <p class="text-or-profond font-bold uppercase tracking-tighter text-[11px] mb-4">{concert.venue}</p>
+              <p class="text-sm text-gris-claire font-light leading-relaxed mb-6 italic">{concert.desc}</p>
+              <p class="text-[10px] text-noir/40 uppercase font-bold tracking-widest border-t border-ivoir pt-4">{concert.artists}</p>
+            </div>
+            
+            <div class="mt-10 flex justify-end">
+              <a href="#" class="bg-noir text-ivoir px-8 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-or-profond hover:text-noir transition-all">
+                Réserver ma place
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+      
+    </div>
+  </section>
+
+  <section class="bg-white py-20 lg:py-32 border-t border-noir/5">
+    <div class="grille">
+      <div class="lg:col-span-12 text-center mb-16">
+        <h2 class="font-serif text-3xl lg:text-5xl italic mb-4">Pass & Tarifs</h2>
+        <div class="w-20 h-[1px] bg-or-profond mx-auto"></div>
+      </div>
+
+      {pricing.map(pass => (
+        <div class={`lg:col-span-4 p-10 lg:p-14 border border-noir/5 text-center flex flex-col items-center ${pass.color} ${pass.featured ? 'shadow-2xl scale-105 z-10' : 'shadow-sm'}`}>
+          <h3 class="font-serif text-2xl italic mb-4">{pass.name}</h3>
+          <p class={`text-5xl font-light my-8 ${pass.featured ? 'text-noir' : 'text-or-profond'}`}>{pass.price}</p>
+          <p class="text-sm font-light opacity-70 mb-12 italic">{pass.desc}</p>
+          <a href="#" class={`w-full py-4 text-[10px] font-bold uppercase tracking-[0.2em] transition-all border ${pass.featured ? 'bg-noir text-ivoir border-noir hover:bg-white hover:text-noir' : 'bg-or-profond text-noir border-or-profond hover:bg-noir hover:text-ivoir'}`}>
+            Choisir ce pass
+          </a>
+        </div>
+      ))}
+      
+      <p class="lg:col-span-12 text-center mt-16 text-xs text-gris-claire font-light italic">
+        Tarifs réduits disponibles pour les -26 ans et étudiants sur présentation d'un justificatif.
+      </p>
+    </div>
+  </section>
+
+</Layout>
