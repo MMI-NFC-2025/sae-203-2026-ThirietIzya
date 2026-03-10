@@ -24,9 +24,22 @@ pnpm-debug.log*
 .idea/
 .netlify/
 
+# PocketBase data and generated files
+# ignore all stored data and binary contents
+PocketBase/pb_data/**
+# keep the generated TypeScript types if needed
+!PocketBase/pb_data/types.d.ts
+
+# PocketBase server binary
+PocketBase/pocketbase.exe
+
+# migrations are essential and should be versioned
+!PocketBase/pb_migrations/**
+
 **/backups/
 **/CHANGELOG.md
 **/auxiliary.db-shm
 **/auxiliary.db-wal
 **/data.db-shm
 **/data.db-wal
+
