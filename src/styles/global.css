@@ -1,15 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-
-    --doré-clair: oklch(0.9672 0.0598 100.23);
-    --gris-claire: oklch(0.7952 0 0);
-    --ivoir: oklch(0.9687 0.0187 96.86);
-    --noir: oklch(0 0 0);
-    --or-profond: oklch(0.7876 0.0981 84.64);
+    --color-doré-clair: oklch(0.9672 0.0598 100.23);
+    --color-gris-claire: oklch(0.7952 0 0);
+    --color-ivoir: oklch(0.9687 0.0187 96.86);
+    --color-noir: oklch(0 0 0);
+    --color-or-profond: oklch(0.7876 0.0981 84.64);
 
     --font-family: 'Arimo Variable', sans-serif;
-
     --my-grid: repeat(12, minmax(0, 88px));
 }
 
