@@ -7,7 +7,7 @@ export async function artistesSorted() {
 }
 
 export async function scenesName() { 
-    const records = await pb.collection('Scenes').getFullList({ sort: 'nom_artiste' }); 
+    const records = await pb.collection('Scenes').getFullList({ sort: 'nom_scene' }); 
     return records; 
 }
 
@@ -22,18 +22,18 @@ export async function artisteID(id) {
 }
 
 export async function sceneID(id) { 
-    const record = await pb.collection('Scenes').getOne(id); 
+    const record = await pb.collection('Scenes').getOne(id, { expand: 'Concerts' }); 
     return record; 
 }
 
 export async function allartistebysceneId(id) { 
-    const records = await pb.collection('Artistes').getFullList({ filter: scene="${id}", sort: 'date_representation' }); 
-    return records; 
+    const scene = await pb.collection('Scenes').getOne(id, { expand: 'Concerts' }); 
+    return scene.expand?.Concerts || []; 
 }
 
 export async function allartistebysceneName(nom) {
-    const scene = await pb.collection('Scenes').getFirstListItem(nom="${nom}");
-    const records = await pb.collection('Artistes').getFullList({ filter: scene="${scene.id}", sort: 'date_representation' }); 
+    const scene = await pb.collection('Scenes').getFirstListItem(`nom="${nom}"`);
+    const records = await pb.collection('Artistes').getFullList({ filter: `scene="${scene.id}"`, sort: 'date_representation' }); 
     return records; 
 }
 export async function addArtiste(artisteData) {

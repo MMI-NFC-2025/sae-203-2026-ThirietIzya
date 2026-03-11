@@ -62,11 +62,10 @@ const scenes: Scene[] = pbScenes.map((r: any) => ({
         {scenes.map((s) => (
           <article class="relative bg-white rounded-xl shadow-sm overflow-hidden flex flex-col group">
             <div class="relative aspect-video overflow-hidden">
-              <Image
+              <img
                 src={s.imageUrl}
                 alt={s.name}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                inferSize
               />
               {s.concerts && (
                 <span class="absolute top-3 right-3 bg-or-profond text-noir text-xs px-2 py-1 rounded-full">

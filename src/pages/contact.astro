@@ -55,10 +55,11 @@ const emailPartenariat = contactData.email_partenariats || 'partenariats@choruss
         <div>
           <div class="bg-white rounded-xl shadow-sm p-8">
             <h2 class="font-serif text-2xl mb-6">Envoyez-nous un message</h2>
-            <form class="space-y-6" aria-label="Formulaire de contact" action="/api/contact" method="POST">
+            <div id="form-status" class="hidden mb-4 p-4 rounded-lg text-sm"></div>
+            <form id="contact-form" class="space-y-6" aria-label="Formulaire de contact">
               <div>
-                <label for="name" class="block text-sm font-medium mb-1">Nom complet <abbr title="obligatoire">*</abbr></label>
-                <input type="text" id="name" name="name" required
+                <label for="nom_complet" class="block text-sm font-medium mb-1">Nom <abbr title="obligatoire">*</abbr></label>
+                <input type="text" id="nom_complet" name="nom_complet" required
                   class="w-full bg-ivoir/20 border border-ivoir/50 px-4 py-3 text-sm focus:outline-none focus:border-or-profond transition-colors outline-none" />
               </div>
               <div>
@@ -67,13 +68,13 @@ const emailPartenariat = contactData.email_partenariats || 'partenariats@choruss
                   class="w-full bg-ivoir/20 border border-ivoir/50 px-4 py-3 text-sm focus:outline-none focus:border-or-profond transition-colors outline-none" />
               </div>
               <div>
-                <label for="phone" class="block text-sm font-medium mb-1">Téléphone</label>
-                <input type="tel" id="phone" name="phone"
+                <label for="telephone" class="block text-sm font-medium mb-1">Téléphone</label>
+                <input type="tel" id="telephone" name="telephone"
                   class="w-full bg-ivoir/20 border border-ivoir/50 px-4 py-3 text-sm focus:outline-none focus:border-or-profond transition-colors outline-none" />
               </div>
               <div>
-                <label for="subject" class="block text-sm font-medium mb-1">Sujet <abbr title="obligatoire">*</abbr></label>
-                <input type="text" id="subject" name="subject" required
+                <label for="sujet" class="block text-sm font-medium mb-1">Sujet <abbr title="obligatoire">*</abbr></label>
+                <input type="text" id="sujet" name="sujet" required
                   class="w-full bg-ivoir/20 border border-ivoir/50 px-4 py-3 text-sm focus:outline-none focus:border-or-profond transition-colors outline-none" />
               </div>
               <div>
@@ -91,9 +92,38 @@ const emailPartenariat = contactData.email_partenariats || 'partenariats@choruss
                 Envoyer le message
               </button>
               <p class="text-xs text-gris-claire"><abbr title="obligatoire">*</abbr> Champs obligatoires</p>
-              <!-- note: response will come from /api/contact -->
-            
             </form>
+
+            <script>
+              document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const statusEl = document.getElementById('form-status')!;
+                const formData = new FormData(form);
+                const body: Record<string, string> = {};
+                formData.forEach((v, k) => { body[k] = v.toString(); });
+
+                try {
+                  const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body),
+                  });
+                  const json = await res.json();
+                  if (res.ok) {
+                    statusEl.textContent = json.message || 'Message envoyé !';
+                    statusEl.className = 'mb-4 p-4 rounded-lg text-sm bg-green-100 text-green-800';
+                    form.reset();
+                  } else {
+                    statusEl.textContent = json.error || 'Erreur lors de l\'envoi.';
+                    statusEl.className = 'mb-4 p-4 rounded-lg text-sm bg-red-100 text-red-800';
+                  }
+                } catch {
+                  statusEl.textContent = 'Impossible de contacter le serveur.';
+                  statusEl.className = 'mb-4 p-4 rounded-lg text-sm bg-red-100 text-red-800';
+                }
+              });
+            </script>
           </div>
         </div>
 

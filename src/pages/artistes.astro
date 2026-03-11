@@ -58,7 +58,7 @@ const artistes = pbRecords.map((r: any) => {
         {artistes.map((a) => (
           <article class="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col group">
             <div class="aspect-4/5 overflow-hidden">
-              <Image src={a.imageUrl} alt={a.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" inferSize />
+              <img src={a.imageUrl} alt={a.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             </div>
             <div class="p-6 flex flex-col flex-1">
               <h3 class="font-serif text-2xl italic text-noir mb-1">{a.name}</h3>

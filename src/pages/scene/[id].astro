@@ -1,7 +1,12 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import { sceneID, allartistebysceneId } from '../../../backend/backend.mjs';
+import { sceneID } from '../../../backend/backend.mjs';
+
+import mapIcon from '../../assets/icon/map_dore.svg';
+import equipeIcon from '../../assets/icon/equipe_dore.svg';
+import calendrierIcon from '../../assets/icon/calendrier_dore.svg';
+import horlogeIcon from '../../assets/icon/horloge_dore.svg';
 
 function getFileUrl(record: any, field: string) {
   if (!record || !record[field]) return '';
@@ -9,14 +14,19 @@ function getFileUrl(record: any, field: string) {
 }
 
 const { id } = Astro.params;
-const record = await sceneID(id);
+let record: any = null;
+try {
+  record = await sceneID(id);
+} catch {
+  // ignore
+}
 if (!record) {
-  throw new Error('Scène introuvable');
+  return Astro.redirect('/scenes');
 }
 
 const scene = {
   id: record.id,
-  name: record.nom_scene,
+  name: record.nom_scene || '',
   description: record.description_scene || '',
   location: record.localisation || '',
   capacity: record.capacite ? `${record.capacite} places` : '',
@@ -24,47 +34,119 @@ const scene = {
   concertCount: record.Concerts?.length || 0,
 };
 
-// also load artistes performing here
-const artistes = await allartistebysceneId(id);
+const artistes: any[] = record.expand?.Concerts || [];
+
+function formatDate(dateStr: string) {
+  if (!dateStr) return { day: '', time: '' };
+  const d = new Date(dateStr);
+  const day = d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+  const time = d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }).replace(':', 'h');
+  return { day: day.charAt(0).toUpperCase() + day.slice(1), time };
+}
 ---
 
 <Layout title={scene.name}>
-  <section class="relative h-[40vh] flex items-center justify-center text-center overflow-hidden">
-    {scene.img && (
-      <Image
+  <!-- Hero -->
+  <section class="relative h-64 md:h-80 lg:h-96 flex items-end overflow-hidden">
+    {scene.img ? (
+      <img
         src={scene.img}
-        width={1600}
-        height={900}
-        inferSize
         alt={scene.name}
         class="absolute inset-0 w-full h-full object-cover"
-        aria-hidden="true"
       />
+    ) : (
+      <div class="absolute inset-0 bg-noir"></div>
     )}
-    <div class="absolute inset-0 bg-noir/65"></div>
-    <div class="relative z-10 px-6">
-      <h1 class="text-ivoir text-3xl lg:text-5xl font-serif italic leading-tight">{scene.name}</h1>
-      <p class="text-ivoir/80 mt-2">{scene.location}</p>
+    <div class="absolute inset-0 bg-linear-to-t from-noir/80 via-noir/40 to-transparent"></div>
+
+    <div class="relative z-10 w-full max-w-5xl mx-auto px-6 pb-8">
+      <a href="/scenes" class="inline-flex items-center gap-2 text-ivoir/80 hover:text-or-profond text-sm mb-4 transition-colors">
+        &larr; Retour aux sc&egrave;nes
+      </a>
+      <h1 class="text-ivoir text-3xl md:text-4xl lg:text-5xl font-serif italic leading-tight">{scene.name}</h1>
+      <div class="flex flex-wrap items-center gap-6 mt-3">
+        {scene.location && (
+          <div class="flex items-center gap-2 text-ivoir/80 text-sm">
+            <Image src={mapIcon} alt="" class="w-5 h-5" />
+            <span>{scene.location}</span>
+          </div>
+        )}
+        {scene.capacity && (
+          <div class="flex items-center gap-2 text-ivoir/80 text-sm">
+            <Image src={equipeIcon} alt="" class="w-5 h-5" />
+            <span>{scene.capacity}</span>
+          </div>
+        )}
+      </div>
     </div>
   </section>
 
-  <section class="bg-ivoir py-12">
-    <div class="max-w-3xl mx-auto px-6 text-gris-claire">
-      <p class="mb-6">{scene.description}</p>
-      <p class="italic mb-4">Capacité : {scene.capacity}</p>
-      {scene.concertCount > 0 && (
-        <p class="mb-4">Nombre de concerts prévus : {scene.concertCount}</p>
-      )}
-      {artistes.length > 0 && (
-        <div>
-          <h2 class="font-serif text-2xl mb-4">Artistes programmés</h2>
-          <ul class="list-disc pl-5">
-            {artistes.map((a: any) => (
-              <li>{a.prenom_artiste} {a.nom_artiste}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+  <!-- A propos -->
+  <section class="bg-ivoir py-12 lg:py-16">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="font-serif text-2xl md:text-3xl italic text-noir mb-6">&Agrave; propos de la salle</h2>
+      <p class="text-gris-claire leading-relaxed max-w-3xl">{scene.description}</p>
     </div>
   </section>
+
+  <!-- Artistes sur cette scene -->
+  {artistes.length > 0 && (
+    <section class="bg-ivoir pb-16 lg:pb-24">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="font-serif text-2xl md:text-3xl italic text-noir mb-8">Artistes sur cette sc&egrave;ne</h2>
+
+        <div class="flex flex-col gap-8">
+          {artistes.map((a: any) => {
+            const name = `${a.prenom_artiste || ''} ${a.nom_artiste || ''}`.trim();
+            const role = a.genre_musical || '';
+            const imgUrl = getFileUrl(a, 'photo_principale');
+            const { day, time } = formatDate(a.date_representation);
+
+            return (
+              <article class="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col md:flex-row">
+                <div class="md:w-64 lg:w-72 shrink-0">
+                  {imgUrl ? (
+                    <img
+                      src={imgUrl}
+                      alt={name}
+                      class="w-full h-56 md:h-full object-cover"
+                    />
+                  ) : (
+                    <div class="w-full h-56 md:h-full bg-noir/10"></div>
+                  )}
+                </div>
+
+                <div class="p-6 flex flex-col flex-1">
+                  <h3 class="font-serif text-xl md:text-2xl italic text-noir">{name}</h3>
+                  {role && (
+                    <p class="text-or-profond capitalize text-sm font-medium mt-1">{role}</p>
+                  )}
+
+                  {day && (
+                    <div class="mt-4 space-y-2">
+                      <div class="flex items-center gap-2 text-sm text-gris-claire">
+                        <Image src={calendrierIcon} alt="" class="w-4 h-4" />
+                        <span>{day}</span>
+                      </div>
+                      <div class="flex items-center gap-2 text-sm text-gris-claire">
+                        <Image src={horlogeIcon} alt="" class="w-4 h-4" />
+                        <span>{time}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  <a
+                    href={`/artiste/${a.id}`}
+                    class="mt-auto pt-4 text-or-profond text-sm font-medium hover:underline w-fit"
+                  >
+                    Voir le profil de l'artiste &rarr;
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
 </Layout>
