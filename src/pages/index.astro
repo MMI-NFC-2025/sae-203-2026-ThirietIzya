@@ -1,7 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import {Image} from 'astro:assets';
+
+// main hero image
 import heroImage from '../assets/img/hero_accueil.webp';
+
+// partner logos (used in Nos Partenaires section)
+import villeDeParisLogo from '../assets/img/ville_de_paris.webp';
+import gouvernementLogo from '../assets/img/gouvernement.webp';
+import sacemLogo from '../assets/img/sacem.webp';
+import orangeLogo from '../assets/img/orange.webp';
+
+// additional partner images
+import lvmhLogo from '../assets/img/lvmh.webp';
+import leFigaroLogo from '../assets/img/le_figaro.webp';
+import classicaLogo from '../assets/img/classica.webp';
+import radioClassiqueLogo from '../assets/img/radio_classique.webp';
+
+// SVG icons used across the page
+import calendrierIcon from '../assets/icon/calendrier_dore.svg';
+import mapIcon from '../assets/icon/map_dore.svg';
+import telechargementIcon from '../assets/icon/telechargement.svg';
+
+// icons for feature cards
+import musiqueIcon from '../assets/icon/musique_dore.svg';
+import equipeIcon from '../assets/icon/equipe_dore.svg';
+import batimentIcon from '../assets/icon/batiment_dore.svg';
 ---
 
 <Layout title="Chorus Symphonia 2025 | Festival de Musique Classique">
@@ -56,133 +80,130 @@ import heroImage from '../assets/img/hero_accueil.webp';
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         
-        <article class="group bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all border border-noir/5">
-          <div class="h-56 overflow-hidden relative">
-            <img src="/assets/img/programme_thumb.webp" alt="Programme" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div class="absolute inset-0 bg-noir/20"></div>
-            <h3 class="absolute bottom-4 left-4 text-ivoir font-serif text-xl">Programme</h3>
+        <!-- Programme card -->
+        <article class="bg-white rounded-xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-all border border-noir/5">
+          <div class="bg-or-profond/10 p-4 rounded-lg mb-4">
+            <Image src={musiqueIcon} alt="Icône musique" class="w-8 h-8" />
           </div>
-          <div class="p-6">
-            <p class="text-sm text-gris-claire leading-relaxed mb-6">8 soirées exceptionnelles avec les plus grands chefs-d'œuvre.</p>
-            <a href="/programme" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/30 pb-1 hover:border-or-profond transition-all">En savoir plus →</a>
-          </div>
+          <h3 class="font-serif text-xl mb-2">Programme</h3>
+          <p class="text-sm text-gris-claire leading-relaxed mb-6">8 soirées exceptionnelles avec les plus grands chefs-d'œuvre.</p>
+          <a href="/programme" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/30 pb-1 hover:border-or-profond transition-all">En savoir plus →</a>
         </article>
 
-        <article class="group bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all border border-noir/5">
-          <div class="h-56 overflow-hidden relative">
-            <img src="/assets/img/artistes_thumb.webp" alt="Artistes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div class="absolute inset-0 bg-noir/20"></div>
-            <h3 class="absolute bottom-4 left-4 text-ivoir font-serif text-xl">Artistes</h3>
+        <!-- Artistes card -->
+        <article class="bg-white rounded-xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-all border border-noir/5">
+          <div class="bg-or-profond/10 p-4 rounded-lg mb-4">
+            <Image src={equipeIcon} alt="Icône artistes" class="w-8 h-8" />
           </div>
-          <div class="p-6">
-            <p class="text-sm text-gris-claire leading-relaxed mb-6">Découvrez les artistes de renommée internationale.</p>
-            <a href="/artistes" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/30 pb-1 hover:border-or-profond transition-all">En savoir plus →</a>
-          </div>
+          <h3 class="font-serif text-xl mb-2">Artistes</h3>
+          <p class="text-sm text-gris-claire leading-relaxed mb-6">Découvrez les artistes de renommée internationale.</p>
+          <a href="/artistes" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/30 pb-1 hover:border-or-profond transition-all">En savoir plus →</a>
         </article>
 
-        <article class="group bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all border border-noir/5">
-          <div class="h-56 overflow-hidden relative">
-            <img src="/assets/img/scenes_thumb.webp" alt="Scènes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div class="absolute inset-0 bg-noir/20"></div>
-            <h3 class="absolute bottom-4 left-4 text-ivoir font-serif text-xl">Scènes</h3>
+        <!-- Scènes card -->
+        <article class="bg-white rounded-xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-all border border-noir/5">
+          <div class="bg-or-profond/10 p-4 rounded-lg mb-4">
+            <Image src={batimentIcon} alt="Icône scènes" class="w-8 h-8" />
           </div>
-          <div class="p-6">
-            <p class="text-sm text-gris-claire leading-relaxed mb-6">3 salles prestigieuses au cœur de Paris.</p>
-            <a href="/scenes" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/30 pb-1 hover:border-or-profond transition-all">En savoir plus →</a>
-          </div>
+          <h3 class="font-serif text-xl mb-2">Scènes</h3>
+          <p class="text-sm text-gris-claire leading-relaxed mb-6">3 salles prestigieuses au cœur de Paris.</p>
+          <a href="/scenes" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/30 pb-1 hover:border-or-profond transition-all">En savoir plus →</a>
         </article>
 
-        <article class="group bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all border border-noir/5">
-          <div class="h-56 overflow-hidden relative">
-            <img src="/assets/img/festival_thumb.webp" alt="Le Festival" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div class="absolute inset-0 bg-noir/20"></div>
-            <h3 class="absolute bottom-4 left-4 text-ivoir font-serif text-xl">Le Festival</h3>
+        <!-- Festival card -->
+        <article class="bg-white rounded-xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-all border border-noir/5">
+          <div class="bg-or-profond/10 p-4 rounded-lg mb-4">
+            <Image src={calendrierIcon} alt="Icône festival" class="w-8 h-8" />
           </div>
-          <div class="p-6">
-            <p class="text-sm text-gris-claire leading-relaxed mb-6">27 ans de passion pour la musique classique.</p>
-            <a href="/festival" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/30 pb-1 hover:border-or-profond transition-all">En savoir plus →</a>
-          </div>
+          <h3 class="font-serif text-xl mb-2">Le Festival</h3>
+          <p class="text-sm text-gris-claire leading-relaxed mb-6">27 ans de passion pour la musique classique.</p>
+          <a href="/festival" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/30 pb-1 hover:border-or-profond transition-all">En savoir plus →</a>
         </article>
 
       </div>
     </div>
   </section>
 
-  <!-- informations pratiques icons section -->
+  <!-- informations pratiques cards -->
   <section class="bg-ivoir py-20 lg:py-32 text-noir">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="font-serif text-3xl italic mb-12">Informations Pratiques</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-        <div class="flex flex-col items-center gap-4">
-          <img src="/assets/icon/calendrier_dore.svg" alt="Calendrier" class="w-12 h-12" />
-          <h3 class="font-serif text-xl">Dates</h3>
-          <p class="text-gris-claire tracking-widest font-medium uppercase text-sm">15‑22 Juin 2025</p>
-          <a href="/infos" class="text-[10px] font-bold border-b border-or-profond/40 uppercase tracking-widest">Voir plus</a>
-        </div>
-        <div class="flex flex-col items-center gap-4">
-          <img src="/assets/icon/map_dore.svg" alt="Lieu" class="w-12 h-12" />
-          <h3 class="font-serif text-xl">Lieu</h3>
-          <p class="text-gris-claire tracking-widest font-medium uppercase text-sm">Opéra National, Paris</p>
-          <a href="/infos" class="text-[10px] font-bold border-b border-or-profond/40 uppercase tracking-widest">Accès</a>
-        </div>
-        <div class="flex flex-col items-center gap-4">
-          <img src="/assets/icon/telechargement.svg" alt="Billetterie" class="w-12 h-12" />
-          <h3 class="font-serif text-xl">Billetterie</h3>
-          <p class="text-gris-claire tracking-widest font-medium uppercase text-sm">À partir de 35€</p>
-          <a href="/billetterie" class="bg-or-profond text-noir px-8 py-3 text-xs font-bold uppercase tracking-widest mt-4">Réserver</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-white py-20 border-y border-noir/5">
     <div class="max-w-4xl mx-auto px-6">
-      <div class="flex flex-col gap-16">
-        
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="p-4 border border-or-profond/20 rounded-full">
-            <img src="/assets/icon/calendrier_dore.svg" alt="Calendrier" class="w-8 h-8" />
+      <h2 class="font-serif text-3xl italic mb-12 text-center">Informations Pratiques</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Dates card -->
+        <article class="bg-white rounded-xl p-8 flex flex-col items-start text-left shadow-sm hover:shadow-xl transition-all border border-noir/5">
+          <div class="bg-or-profond/10 p-4 rounded-lg mb-4">
+            <Image src={calendrierIcon} alt="Calendrier" class="w-8 h-8" />
           </div>
-          <h3 class="font-serif text-2xl italic">Dates</h3>
-          <p class="text-gris-claire tracking-widest font-medium uppercase text-sm">15-22 Juin 2025</p>
-          <a href="/infos" class="text-[10px] font-bold border-b border-or-profond/40 uppercase tracking-widest">Voir plus</a>
-        </div>
+          <h3 class="font-serif text-xl mb-2">Dates</h3>
+          <p class="text-gris-claire tracking-widest font-medium uppercase text-sm mb-4">15‑22 Juin 2025</p>
+          <a href="/infos" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/40 pb-1 hover:border-or-profond transition-all">Voir plus →</a>
+        </article>
 
-        <div class="h-[1px] w-full bg-or-profond/10"></div>
-
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="p-4 border border-or-profond/20 rounded-full">
-            <img src="/assets/icon/map_dore.svg" alt="Lieu" class="w-8 h-8" />
+        <!-- Lieu card -->
+        <article class="bg-white rounded-xl p-8 flex flex-col items-start text-left shadow-sm hover:shadow-xl transition-all border border-noir/5">
+          <div class="bg-or-profond/10 p-4 rounded-lg mb-4">
+            <Image src={mapIcon} alt="Lieu" class="w-8 h-8" />
           </div>
-          <h3 class="font-serif text-2xl italic">Lieu</h3>
-          <p class="text-gris-claire tracking-widest font-medium uppercase text-sm">Opéra National, Paris</p>
-          <a href="/infos" class="text-[10px] font-bold border-b border-or-profond/40 uppercase tracking-widest">Accès</a>
-        </div>
+          <h3 class="font-serif text-xl mb-2">Lieu</h3>
+          <p class="text-gris-claire tracking-widest font-medium uppercase text-sm mb-4">Opéra National, Paris</p>
+          <a href="/infos" class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/40 pb-1 hover:border-or-profond transition-all">Accès →</a>
+        </article>
 
-        <div class="h-[1px] w-full bg-or-profond/10"></div>
-
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="p-4 border border-or-profond/20 rounded-full">
-            <img src="/assets/icon/telechargement.svg" alt="Billetterie" class="w-8 h-8" />
+        <!-- Billetterie card -->
+        <article class="bg-white rounded-xl p-8 flex flex-col items-start text-left shadow-sm hover:shadow-xl transition-all border border-noir/5">
+          <div class="bg-or-profond/10 p-4 rounded-lg mb-4">
+            <Image src={telechargementIcon} alt="Billetterie" class="w-8 h-8" />
           </div>
-          <h3 class="font-serif text-2xl italic">Billetterie</h3>
-          <p class="text-gris-claire tracking-widest font-medium uppercase text-sm">À partir de 35€</p>
-          <a href="/billetterie" class="bg-or-profond text-noir px-8 py-3 text-xs font-bold uppercase tracking-widest mt-4">Réserver</a>
-        </div>
-
+          <h3 class="font-serif text-xl mb-2">Billetterie</h3>
+          <p class="text-gris-claire tracking-widest font-medium uppercase text-sm mb-4">À partir de 35€</p>
+          <a href="/billetterie" class="bg-or-profond text-noir px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-noir hover:text-ivoir transition-all">Réserver</a>
+        </article>
       </div>
     </div>
   </section>
 
   <section class="bg-ivoir py-20 lg:py-32">
     <div class="max-w-[1000px] mx-auto px-6 text-center">
-      <h2 class="font-serif text-3xl italic mb-12">Nos Partenaires</h2>
-      
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-12 items-center opacity-70">
-        <img src="/assets/img/ville_de_paris.webp" alt="Ville de Paris" class="h-12 w-auto mx-auto grayscale hover:grayscale-0 transition-all" />
-        <img src="/assets/img/gouvernement.webp" alt="Île-de-France" class="h-12 w-auto mx-auto grayscale hover:grayscale-0 transition-all" />
-        <img src="/assets/img/sacem.webp" alt="SACEM" class="h-10 w-auto mx-auto grayscale hover:grayscale-0 transition-all" />
-        <img src="/assets/img/orange.webp" alt="Orange" class="h-8 w-auto mx-auto grayscale hover:grayscale-0 transition-all" />
+      <h2 class="font-serif text-3xl italic mb-4">Nos Partenaires</h2>
+      <p class="text-gris-claire text-sm mb-12 font-light">Ils nous font confiance et contribuent au succès du festival</p>
+
+      <!-- Institutionnels -->
+      <h3 class="font-serif text-xl mb-4">Partenaires Institutionnels</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 justify-center">
+        <article class="bg-white rounded-xl p-8 flex items-center justify-center border border-noir/5 max-w-xs">
+          <Image src={villeDeParisLogo} alt="Ville de Paris" class="h-12 w-auto" />
+        </article>
+        <article class="bg-white rounded-xl p-8 flex items-center justify-center border border-noir/5 max-w-xs">
+          <Image src={gouvernementLogo} alt="Île-de-France" class="h-12 w-auto" />
+        </article>
+        <article class="bg-white rounded-xl p-8 flex items-center justify-center border border-noir/5 max-w-xs">
+          <Image src={sacemLogo} alt="SACEM" class="h-10 w-auto" />
+        </article>
+        <article class="bg-white rounded-xl p-8 flex items-center justify-center border border-noir/5 max-w-xs">
+          <Image src={orangeLogo} alt="Orange" class="h-8 w-auto" />
+        </article>
+      </div>
+
+      <!-- Mécènes -->
+      <h3 class="font-serif text-xl mb-4">Mécènes</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 justify-center">
+        <article class="bg-white rounded-xl p-8 flex items-center justify-center border border-noir/5 max-w-2xl">
+          <Image src={lvmhLogo} alt="LVMH" class="h-12 w-auto" />
+        </article>
+      </div>
+
+      <!-- Médias -->
+      <h3 class="font-serif text-xl mb-4">Partenaires Médias</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12 justify-center">
+        <article class="bg-white rounded-xl p-8 flex items-center justify-center border border-noir/5 max-w-xs">
+          <Image src={leFigaroLogo} alt="Le Figaro" class="h-10 w-auto" />
+        </article>
+        <article class="bg-white rounded-xl p-8 flex items-center justify-center border border-noir/5 max-w-xs">
+          <Image src={classicaLogo} alt="Classica" class="h-10 w-auto" />
+        </article>
+        <article class="bg-white rounded-xl p-8 flex items-center justify-center border border-noir/5 max-w-xs">
+          <Image src={radioClassiqueLogo} alt="Radio Classique" class="h-10 w-auto" />
+        </article>
       </div>
 
       <div class="mt-20">
