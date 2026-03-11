@@ -1,130 +1,202 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 
-const transportData = [
+// static data for now; will come from PocketBase later
+const faqItems = [
   {
-    venue: "Opéra National de Paris",
-    address: "Place de l'Opéra, 75009 Paris",
-    access: "Métro : Opéra (3, 7, 8) | RER A : Auber"
+    question: 'Comment réserver mes billets ?',
+    answer: `Vous pouvez réserver vos billets directement en ligne sur notre site 24h/24, par
+        téléphone au +33 1 23 45 67 89 (du lundi au samedi de 10h à 19h), ou directement à la
+        billetterie de l'Opéra National aux mêmes horaires.`,
   },
   {
-    venue: "Théâtre des Champs-Élysées",
-    address: "15 Avenue Montaigne, 75008 Paris",
-    access: "Métro : Alma-Marceau (9) | RER C : Pont de l'Alma"
+    question: 'Y a-t-il des tarifs réduits ?',
+    answer: `Oui, nous proposons des tarifs réduits de 20% pour les étudiants et les moins de 26 ans
+        sur présentation d'un justificatif. Les groupes de 10 personnes ou plus bénéficient d'une
+        réduction de 15%. Les demandeurs d'emploi peuvent également bénéficier de places à tarif
+        réduit dans la limite des disponibilités.`,
   },
   {
-    venue: "Salle Pleyel",
-    address: "252 Rue du Faubourg Saint-Honoré, 75008 Paris",
-    access: "Métro : Ternes (2) | RER A : CDG-Étoile"
-  }
+    question: 'Puis-je annuler ou modifier ma réservation ?',
+    answer: `Les billets peuvent être remboursés jusqu'à 48h avant la représentation, moyennant des
+        frais de gestion de 5€. Les modifications sont possibles jusqu'à 24h avant, sous réserve
+        de disponibilité. Pour toute demande, contactez notre service client.`,
+  },
+  {
+    question:
+      'Le festival est-il accessible aux personnes à mobilité réduite ?',
+    answer: `Oui, toutes nos salles sont accessibles aux personnes à mobilité réduite. Des places
+        spécifiques sont réservées et peuvent être réservées par téléphone. Un accompagnateur peut
+        assister gratuitement à la représentation. Merci de nous informer de vos besoins lors de la
+        réservation.`,
+  },
+  {
+    question: 'Y a-t-il un vestiaire ?',
+    answer: `Oui, un vestiaire gratuit est à votre disposition dans chaque salle. Nous vous
+        recommandons d'arriver 30 minutes avant le début du concert pour déposer vos affaires et vous
+        installer confortablement.`,
+  },
+  {
+    question: 'Quelle est la tenue vestimentaire recommandée ?',
+    answer: `Il n'y a pas de code vestimentaire strict, mais nous recommandons une tenue correcte.
+        Beaucoup de spectateurs choisissent de s'habiller élégamment pour profiter pleinement de
+        l'expérience.`,
+  },
+  {
+    question: 'Peut-on prendre des photos pendant les concerts ?',
+    answer: `Les photos et vidéos sont interdites pendant les concerts par respect pour les artistes et
+        les autres spectateurs. Vous pouvez néanmoins prendre des photos dans les espaces communs
+        avant et après les représentations.`,
+  },
+  {
+    question: 'Les concerts sont-ils disponibles en streaming ?',
+    answer: `Certains concerts seront diffusés en direct sur notre chaîne YouTube et resteront
+        disponibles en replay pendant 30 jours. Les détails seront communiqués pour chaque concert
+        concerné.`,
+  },
 ];
+
+// hero image
+import heroImg from '../assets/img/salle_des_glaces.webp';
+// icons we might use within the content
+import mapIcon from '../assets/icon/map_dore.svg';
+import mailIcon from '../assets/icon/mail_dore.svg';
+import calendrierIcon from '../assets/icon/calendrier_dore.svg';
 ---
 
-<Layout title="Informations Pratiques | Chorus Symphonia">
-
-  <section class="relative h-[50vh] w-full flex items-center justify-center text-center text-ivoir overflow-hidden bg-noir">
-    <div class="absolute inset-0 z-0">
-      <img src="/assets/img/salle_des_glaces.webp" alt="Billetterie" class="w-full h-full object-cover opacity-50" />
-    </div>
+<Layout title="Informations Pratiques">
+  <!-- hero -->
+  <section class="relative h-[50vh] flex items-center justify-center text-center overflow-hidden">
+    <Image
+      src={heroImg}
+      alt="Billetterie et informations pratiques"
+      class="absolute inset-0 w-full h-full object-cover"
+      aria-hidden="true"
+    />
+    <div class="absolute inset-0 bg-noir/65"></div>
     <div class="relative z-10 px-6">
-      <p class="text-or-profond uppercase tracking-[0.4em] mb-4 text-xs font-bold">Votre Visite</p>
-      <h1 class="text-3xl lg:text-6xl font-serif italic leading-tight">Informations Pratiques</h1>
+      <h1 class="text-ivoir text-3xl lg:text-5xl font-serif italic leading-tight">Informations Pratiques</h1>
+      <p class="text-ivoir/80 mt-2">Tout ce que vous devez savoir pour profiter du festival</p>
     </div>
   </section>
 
-  <section class="bg-ivoir py-16 lg:py-24 w-full">
-    <div class="grille gap-y-12">
-      
-      <div class="lg:col-span-6 bg-white p-8 lg:p-12 shadow-sm border border-noir/5">
-        <h2 class="font-serif text-3xl italic mb-10 text-noir border-b border-or-profond/20 pb-4">Billetterie</h2>
-        <ul class="space-y-4 text-sm font-light text-gris-claire">
-          <li class="flex justify-between border-b border-ivoir pb-2"><span>Plein tarif</span> <strong class="text-noir">65€ — 120€</strong></li>
-          <li class="flex justify-between border-b border-ivoir pb-2"><span>Tarif réduit</span> <strong class="text-noir">35€ — 80€</strong></li>
-          <li class="flex justify-between"><span>Pass Festival (8 soirées)</span> <strong class="text-or-profond font-bold text-lg">380€</strong></li>
+  <!-- content -->
+  <section class="bg-ivoir py-16 lg:py-24 text-noir">
+    <div class="max-w-4xl mx-auto px-6">
+      <!-- Billetterie -->
+      <h2 class="font-serif text-3xl mb-6 mt-8">Billetterie</h2>
+      <div class="space-y-8">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h3 class="font-semibold mb-3">Tarifs</h3>
+          <ul class="list-disc list-inside space-y-1 text-sm">
+            <li><strong>Plein tarif :</strong> 65€ - 120€ selon les salles et emplacements</li>
+            <li><strong>Tarif réduit :</strong> 35€ - 80€ (étudiants, -26 ans, demandeurs d'emploi)</li>
+            <li><strong>Abonnement 3 concerts :</strong> 150€ (au lieu de 195€)</li>
+            <li><strong>Abonnement 5 concerts :</strong> 240€ (au lieu de 325€)</li>
+            <li><strong>Pass Festival (8 concerts) :</strong> 380€ (au lieu de 520€)</li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h3 class="font-semibold mb-3">Points de vente</h3>
+          <ul class="list-disc list-inside space-y-1 text-sm">
+            <li><strong>En ligne :</strong> Sur notre site web (disponible 24h/24)</li>
+            <li><strong>Par téléphone :</strong> 01 42 33 44 55 (du lundi au vendredi, 10h-18h)</li>
+            <li><strong>Billetteries des salles :</strong> Opéra National, Théâtre des Champs-Élysées, Salle
+              Pleyel</li>
+            <li><strong>Points de vente Fnac et Carrefour Spectacles</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Dates et Horaires -->
+      <h2 class="font-serif text-3xl mb-6 mt-12">Dates et Horaires</h2>
+      <div class="bg-white rounded-xl shadow-sm p-6 text-sm space-y-3">
+        <p><strong>Du 15 au 22 juin 2025</strong></p>
+        <p>Tous les concerts commencent à <time datetime="20:00">20h00</time>. Nous vous recommandons
+de vous y prendre au moins 30 minutes avant.</p>
+        <p>Les portes ferment 5 minutes après le début du concert. Les retardataires ne pourront accéder à
+la salle qu'à l'entracte.</p>
+      </div>
+
+      <!-- Accès & Transports -->
+      <h2 class="font-serif text-3xl mb-6 mt-12">Accès et Transports</h2>
+      <div class="space-y-8">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h3 class="font-semibold mb-2 flex items-center gap-2"><Image src={mapIcon} alt="" class="w-5 h-5" aria-hidden="true" />Opéra National de Paris</h3>
+          <p class="text-sm"><strong>Adresse :</strong> Place de l'Opéra, 75009 Paris</p>
+          <p class="text-sm"><strong>Métro :</strong> Opéra (lignes 3, 7, 8)</p>
+          <p class="text-sm"><strong>RER :</strong> Auber (RER A)</p>
+          <p class="text-sm"><strong>Bus :</strong> 20, 21, 27, 29, 42, 52, 53, 66, 68, 81, 95</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h3 class="font-semibold mb-2">Théâtre des Champs-Élysées</h3>
+          <p class="text-sm"><strong>Adresse :</strong> 15 Avenue Montaigne, 75008 Paris</p>
+          <p class="text-sm"><strong>Métro :</strong> Alma-Marceau (ligne 9)</p>
+          <p class="text-sm"><strong>RER :</strong> Pont de l'Alma (RER C)</p>
+          <p class="text-sm"><strong>Bus :</strong> 42, 63, 72, 80, 92</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h3 class="font-semibold mb-2">Salle Pleyel</h3>
+          <p class="text-sm"><strong>Adresse :</strong> 252 Rue du Faubourg Saint-Honoré, 75008 Paris</p>
+          <p class="text-sm"><strong>Métro :</strong> Ternes (ligne 2)</p>
+          <p class="text-sm"><strong>RER :</strong> Charles de Gaulle-Étoile (RER A)</p>
+          <p class="text-sm"><strong>Bus :</strong> 30, 31, 43, 92, 93</p>
+        </div>
+      </div>
+
+      <!-- Services & Accessibilité -->
+      <h2 class="font-serif text-3xl mb-6 mt-12">Services et Accessibilité</h2>
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <ul class="list-disc list-inside space-y-1 text-sm">
+          <li><strong>Vestiaire :</strong> Service gratuit dans toutes les salles</li>
+          <li><strong>Restauration :</strong> Bars et espaces de restauration sur place (réservation
+            conseillée)</li>
+          <li><strong>Accessibilité PMR :</strong> Toutes nos salles sont accessibles aux personnes à mobilité
+            réduite. Merci de nous signaler votre venue lors de la réservation</li>
+          <li><strong>Boucle magnétique :</strong> Disponible pour les personnes malentendantes</li>
+          <li><strong>Programmes en braille :</strong> Sur demande au moins 48 h à l'avance</li>
         </ul>
-        <div class="mt-10 p-4 bg-ivoir/30 border border-or-profond/10">
-          <p class="text-[10px] uppercase font-bold tracking-widest text-or-profond mb-2">Points de vente</p>
-          <p class="text-xs leading-relaxed opacity-70">En ligne (24h/24), par téléphone au 01 42 33 44 55 ou aux guichets des salles.</p>
-        </div>
       </div>
 
-      <div class="lg:col-span-6 bg-white p-8 lg:p-12 shadow-sm border border-noir/5 flex flex-col justify-between">
-        <div>
-          <h2 class="font-serif text-3xl italic mb-10 text-noir border-b border-or-profond/20 pb-4">Dates & Horaires</h2>
-          <p class="text-or-profond font-bold text-lg mb-4">Du 15 au 22 Juin 2025</p>
-          <p class="text-sm font-light leading-relaxed text-gris-claire mb-8 italic">
-            Tous les concerts commencent à 20h00. L'ouverture des portes s'effectue 45 minutes avant le début.
-          </p>
-          <div class="bg-noir text-ivoir p-6 border-l-4 border-or-profond text-xs leading-relaxed uppercase tracking-tighter opacity-90">
-            Les portes ferment 5 minutes avant le début. Retardataires admis uniquement à l'entracte.
-          </div>
-        </div>
-        <a href="/programme" class="mt-12 bg-or-profond text-noir py-4 text-center text-[10px] font-bold uppercase tracking-widest hover:bg-noir hover:text-ivoir transition-all">
-          Découvrir le programme complet
-        </a>
+      <!-- Conseils Pratiques -->
+      <h2 class="font-serif text-3xl mb-6 mt-12">Conseils Pratiques</h2>
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <ul class="list-disc list-inside space-y-1 text-sm">
+          <li><strong>Tenue vestimentaire :</strong> Tenue correcte exigée (pas de tenue décontractée)</li>
+          <li><strong>Photos et vidéos :</strong> Interdites pendant les concerts</li>
+          <li><strong>Téléphones portables :</strong> À éteindre impérativement</li>
+          <li><strong>Retards :</strong> Entrée uniquement à l'entracte</li>
+          <li><strong>Enfants :</strong> Concerts accessibles à partir de 8 ans</li>
+        </ul>
       </div>
 
+      <!-- Contact Billetterie -->
+      <h2 class="font-serif text-3xl mb-6 mt-12">Contact Billetterie</h2>
+      <div class="bg-white rounded-xl shadow-sm p-6 text-sm space-y-2">
+        <p><strong>Téléphone :</strong> <a href="tel:+33142334455" class="text-or-profond">01 42 33 44 55</a></p>
+        <p class="flex items-center gap-2"><Image src={mailIcon} alt="" class="w-5 h-5" aria-hidden="true" /><strong>Email :</strong> <a
+            href="mailto:billetterie@chorussymphonia.fr" class="text-or-profond">billetterie@chorussymphonia.fr</a></p>
+        <p><strong>Horaires :</strong> Du lundi au vendredi, 10h-18h</p>
+      </div>
     </div>
   </section>
 
-  <section class="bg-white py-20 lg:py-32 border-y border-noir/5 w-full">
-    <div class="grille">
-        <h2 class="lg:col-span-12 font-serif text-3xl lg:text-4xl italic text-center mb-20 text-noir">Accès aux Salles</h2>
-        
-        {transportData.map((item) => (
-          <div class="lg:col-span-4 flex flex-col gap-6 group mb-12 lg:mb-0">
-            <div class="w-12 h-[1px] bg-or-profond group-hover:w-full transition-all duration-700"></div>
-            <h3 class="font-serif text-2xl italic group-hover:text-or-profond transition-colors">{item.venue}</h3>
-            <div class="space-y-4 text-sm font-light text-gris-claire">
-              <p><strong class="block text-[10px] uppercase tracking-widest text-noir opacity-40 mb-1">Adresse</strong> {item.address}</p>
-              <p><strong class="block text-[10px] uppercase tracking-widest text-noir opacity-40 mb-1">Accès</strong> {item.access}</p>
+  <!-- FAQ section -->
+  <section class="py-16 lg:py-24">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="font-serif text-3xl mb-8 text-center">Foire aux questions (FAQ)</h2>
+      <div class="space-y-4">
+        {faqItems.map((item) => (
+          <details class="bg-white rounded-xl shadow-sm p-6">
+            <summary class="font-semibold cursor-pointer">{item.question}</summary>
+            <div class="mt-2 text-sm text-gris-claire leading-relaxed">
+              {item.answer}
             </div>
-          </div>
+          </details>
         ))}
+      </div>
     </div>
   </section>
-
-  <section class="bg-ivoir py-20 lg:py-32 w-full">
-    <div class="grille items-start gap-y-16">
-      
-      <div class="lg:col-span-7">
-        <h2 class="font-serif text-3xl italic mb-12 text-noir">Foire aux questions</h2>
-        <div class="space-y-4">
-          <details class="group bg-white border border-noir/5 p-6 cursor-pointer">
-            <summary class="list-none flex justify-between items-center font-bold text-xs uppercase tracking-widest">
-              Comment réserver ?
-              <span class="text-or-profond group-open:rotate-45 transition-transform text-2xl">+</span>
-            </summary>
-            <p class="mt-6 text-sm font-light text-gris-claire border-t border-ivoir pt-4 italic">
-              Via notre site web 24h/24 ou par téléphone au +33 1 23 45 67 89.
-            </p>
-          </details>
-          <details class="group bg-white border border-noir/5 p-6 cursor-pointer">
-            <summary class="list-none flex justify-between items-center font-bold text-xs uppercase tracking-widest">
-              Vestiaire et objets encombrants ?
-              <span class="text-or-profond group-open:rotate-45 transition-transform text-2xl">+</span>
-            </summary>
-            <p class="mt-6 text-sm font-light text-gris-claire border-t border-ivoir pt-4 italic">
-              Un vestiaire gratuit est disponible. Les bagages volumineux ne sont pas admis.
-            </p>
-          </details>
-        </div>
-      </div>
-
-      <div class="lg:col-span-5 bg-noir text-ivoir p-10 lg:p-16 shadow-2xl flex flex-col gap-10">
-        <h2 class="font-serif text-3xl italic text-or-profond">Services</h2>
-        <ul class="space-y-8 text-sm font-light">
-          <li class="flex gap-4"><span class="text-or-profond font-bold">01.</span> Vestiaire gratuit surveillé.</li>
-          <li class="flex gap-4"><span class="text-or-profond font-bold">02.</span> Salles accessibles PMR.</li>
-          <li class="flex gap-4"><span class="text-or-profond font-bold">03.</span> Bar et restauration sur place.</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
 </Layout>
-
-<style>
-  summary::-webkit-details-marker { display: none; }
-</style>

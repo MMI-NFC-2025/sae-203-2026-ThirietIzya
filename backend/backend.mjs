@@ -79,3 +79,26 @@ export async function updateScene(id, sceneData) {
         throw error;
     }
 }
+
+// new helpers for Contact collection
+export async function contactsList() {
+    try {
+        const records = await pb.collection('Contact').getFullList();
+        return records;
+    } catch (err) {
+        // if the collection is not publicly readable we get a 403; fall back to empty array
+        console.warn('contactsList failed, returning empty:', err.message || err);
+        return [];
+    }
+}
+
+export async function addContact(contactData) {
+    try {
+        const record = await pb.collection('Contact').create(contactData);
+        console.log('Contact ajouté :', record);
+        return record;
+    } catch (error) {
+        console.error('Erreur lors de l\'ajout du contact :', error);
+        throw error;
+    }
+}
