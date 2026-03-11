@@ -1,7 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import heroImg from '../assets/img/hero_festival.webp';
+import cardFestival from '../assets/img/card_festival.webp';
 
-// On définit les données pour les sections répétitives
 const stats = [
   { number: "27 ans", label: "d'histoire" },
   { number: "250+", label: "artistes accueillis" },
@@ -43,7 +45,7 @@ const team = [
   
   <section class="relative h-[60vh] flex items-center justify-center text-center text-ivoir overflow-hidden">
     <div class="absolute inset-0 z-0">
-      <img src="/assets/img/festival-hero-about.webp" alt="Coulisses du festival" class="w-full h-full object-cover" />
+      <Image src={heroImg} alt="Coulisses du festival" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-noir/60"></div>
     </div>
     <div class="relative z-10 px-6">
@@ -55,18 +57,24 @@ const team = [
   </section>
 
   <section class="bg-ivoir py-20 lg:py-32">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="font-serif text-3xl lg:text-4xl italic mb-12 text-noir">Notre Histoire</h2>
-      <div class="space-y-8 text-gris-claire leading-relaxed font-light text-lg">
-        <p>
-          Fondé en 1998, le Festival Chorus Symphonia est né de la volonté de créer un événement culturel d'envergure internationale à Paris, célébrant le patrimoine musical classique tout en offrant une scène aux talents contemporains.
-        </p>
-        <p>
-          Au fil des années, le festival s'est imposé comme un rendez-vous incontournable pour les amateurs de musique classique. Chaque édition rassemble plus de 15 000 spectateurs venus du monde entier pour découvrir ou redécouvrir les plus belles œuvres du répertoire.
-        </p>
-        <p>
-          Grâce à la qualité de sa programmation et à l'excellence de son organisation, Chorus Symphonia a accueilli les plus grands orchestres et solistes internationaux, créant des moments inoubliables.
-        </p>
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="font-serif text-3xl lg:text-4xl italic mb-12 text-noir text-center">Notre Histoire</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div class="rounded-xl overflow-hidden shadow-lg">
+          <Image src={cardFestival} alt="Le festival Chorus Symphonia" class="w-full h-full object-cover" />
+        </div>
+        <div class="space-y-8 text-gris-claire leading-relaxed font-light text-lg">
+          <p>
+            Fondé en 1998, le Festival Chorus Symphonia est né de la volonté de créer un événement culturel d'envergure internationale à Paris, célébrant le patrimoine musical classique tout en offrant une scène aux talents contemporains.
+          </p>
+          <p>
+            Au fil des années, le festival s'est imposé comme un rendez-vous incontournable pour les amateurs de musique classique. Chaque édition rassemble plus de 15 000 spectateurs venus du monde entier pour découvrir ou redécouvrir les plus belles œuvres du répertoire.
+          </p>
+          <p>
+            Grâce à la qualité de sa programmation et à l'excellence de son organisation, Chorus Symphonia a accueilli les plus grands orchestres et solistes internationaux, créant des moments inoubliables.
+          </p>
+        </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-24 border-t border-or-profond/20 pt-16">
@@ -108,7 +116,7 @@ const team = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         {team.map(member => (
           <div class="flex flex-col items-center text-center">
-            <div class="w-32 h-32 rounded-full bg-gradient-to-tr from-or-profond to-doré-clair p-[2px] mb-6 shadow-lg">
+            <div class="w-32 h-32 rounded-full bg-linear-to-tr from-or-profond to-doré-clair p-0.5 mb-6 shadow-lg">
               <div class="w-full h-full rounded-full bg-white flex items-center justify-center text-or-profond">
                 <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
               </div>
