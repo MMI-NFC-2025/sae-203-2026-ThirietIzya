@@ -1,13 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import heroImage from '../public/assets/img/hero_accueil.webp';
+import {Image} from 'astro:assets';
+import heroImage from '../assets/img/hero_accueil.webp';
 ---
 
 <Layout title="Chorus Symphonia 2025 | Festival de Musique Classique">
   
   <section class="relative h-screen flex items-center justify-center text-center text-ivoir overflow-hidden">
     <div class="absolute inset-0 z-0">
-      <img src={heroImage.src} alt="Orchestre" class="w-full h-full object-cover" />
+      <Image src={heroImage} alt="Orchestre" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-noir/60"></div>
     </div>
 
