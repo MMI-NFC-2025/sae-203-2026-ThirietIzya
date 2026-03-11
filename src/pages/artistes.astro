@@ -1,161 +1,80 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { artistesSorted } from '../../backend/backend.mjs';
 
-// LA LISTE COMPLÈTE DES 6 ARTISTES DE TON HTML
-const artistes = [
-  {
-    name: "Anne Akiko Meyersa",
-    role: "Violoniste",
-    image: "/assets/img/ann_akiko_meyers.webp",
-    desc: "Considérée comme l’une des violonistes les plus captivantes de sa génération, elle se distingue par son jeu expressif et sa présence artistique remarquable.",
-    perf: "15 Juin — Opéra National"
-  },
-  {
-    name: "Eldbjørg Hemsing",
-    role: "Violoniste",
-    image: "/assets/img/eldbjorg_emsing.webp",
-    desc: "Violoniste norvégienne acclamée, reconnue pour son jeu lumineux et son engagement artistique toujours empreint de sensibilité et d’audace.",
-    perf: "16 Juin — Théâtre des Champs-Élysées"
-  },
-  {
-    name: "Thomas Adès",
-    role: "Compositeur & Chef d'orchestre",
-    image: "/assets/img/thomas_ades.webp",
-    desc: "Compositeur et chef d’orchestre parmi les plus influents, Thomas Adès est reconnu pour son langage musical novateur et sa maîtrise exceptionnelle.",
-    perf: "17 Juin — Salle Pleyel"
-  },
-  {
-    name: "John Adams",
-    role: "Chef d'orchestre",
-    image: "/assets/img/john_adams.webp",
-    desc: "Figure majeure de la musique contemporaine, il insuffle une énergie rythmique et une profondeur émotionnelle unique à chacune de ses directions.",
-    perf: "19 Juin — Basilique Sainte-Clotilde"
-  },
-  {
-    name: "Ludovico Einaudi",
-    role: "Pianiste & Compositeur",
-    image: "/assets/img/ludovico_einaudi.webp",
-    desc: "Emblématique de la scène contemporaine, il est reconnu pour son langage épuré et son pouvoir évocateur qui touche un public mondial.",
-    perf: "21 Juin — Salle Pleyel"
-  },
-  {
-    name: "Karolina Protsenko",
-    role: "Violoniste",
-    image: "/assets/img/karolina_protsenko.webp",
-    desc: "Jeune violoniste aux interprétations vibrantes, elle est reconnue pour son énergie communicative et sa capacité à émouvoir un public international.",
-    perf: "22 Juin — Concert de clôture"
-  }
-];
+import heroImg from '../assets/img/hero_artiste.webp';
+
+// helper to build an URL for a file stored in PocketBase
+function getFileUrl(record: any, field: string) {
+  if (!record || !record[field]) return '';
+  return `http://127.0.0.1:8090/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+}
+
+// fetch the list from PocketBase; this runs at build time / server-side
+const pbRecords = await artistesSorted();
+
+// convert PocketBase objects into a shape our component expects
+const artistes = pbRecords.map((r: any) => {
+  const name = `${r.prenom_artiste || ''} ${r.nom_artiste || ''}`.trim();
+  const role = r.genre_musical || '';
+  const description = r.description || '';
+  const perf = r.date_representation
+    ? new Date(r.date_representation).toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    : '';
+  return {
+    id: r.id,
+    name,
+    role,
+    imageUrl: getFileUrl(r, 'photo_principale'),
+    description,
+    perf,
+  };
+});
 ---
 
-<Layout title="Artistes | Chorus Symphonia">
-
-  <section class="relative h-[50vh] flex items-center justify-center text-center text-ivoir overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <img src="/assets/img/hero_artiste.webp" alt="Artistes" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-noir/70"></div>
-    </div>
+<Layout title="Artistes">
+  <section class="relative h-[50vh] flex items-center justify-center text-center overflow-hidden">
+    <Image
+      src={heroImg}
+      alt="Artistes de musique classique sur scène"
+      class="absolute inset-0 w-full h-full object-cover"
+      aria-hidden="true"
+    />
+    <div class="absolute inset-0 bg-noir/65"></div>
     <div class="relative z-10 px-6">
-      <p class="text-or-profond uppercase tracking-[0.4em] mb-4 text-xs font-bold">Le Festival</p>
-      <h1 class="text-3xl lg:text-5xl font-serif italic leading-tight">Rencontrez les virtuoses</h1>
+      <h1 class="text-ivoir text-3xl lg:text-5xl font-serif italic leading-tight">Artistes</h1>
+      <p class="text-ivoir/80 mt-2">Rencontrez les artistes exceptionnels qui feront vibrer le festival</p>
     </div>
   </section>
 
   <section class="bg-ivoir py-16 lg:py-24">
-    <div class="grille gap-y-12 lg:gap-x-8">
-      
-      {artistes.map((a) => (
-        <article class="lg:col-span-4 bg-white shadow-sm border border-noir/5 flex flex-col group overflow-hidden transition-all duration-500 hover:shadow-xl">
-          <div class="aspect-[4/5] overflow-hidden">
-            <img 
-              src={a.image} 
-              alt={a.name} 
-              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-in-out" 
-            />
-          </div>
-          
-          <div class="p-8 flex flex-col flex-1">
-            <h3 class="font-serif text-2xl italic text-noir mb-1">{a.name}</h3>
-            <p class="text-or-profond uppercase tracking-widest text-[10px] font-bold mb-6">{a.role}</p>
-            <p class="text-sm text-gris-claire font-light leading-relaxed mb-8 flex-1">
-              {a.desc}
-            </p>
-            
-            <button 
-              class="js-open-modal text-[10px] font-bold border-b border-or-profond/40 pb-1 uppercase tracking-widest hover:border-or-profond transition-all w-fit"
-              data-name={a.name}
-              data-role={a.role}
-              data-desc={a.desc}
-              data-img={a.image}
-              data-perf={a.perf}
-            >
-              En savoir plus →
-            </button>
-          </div>
-        </article>
-      ))}
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {artistes.map((a) => (
+          <article class="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col group">
+            <div class="aspect-4/5 overflow-hidden">
+              <Image src={a.imageUrl} alt={a.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" inferSize />
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="font-serif text-2xl italic text-noir mb-1">{a.name}</h3>
+              <p class="text-or-profond uppercase tracking-widest text-[10px] font-bold mb-4">{a.role}</p>
+              <p class="text-sm text-gris-claire flex-1 mb-6">{a.description}</p>
+              <a
+                href={`/artiste/${a.id}`}
+                class="text-or-profond uppercase tracking-widest text-[10px] font-bold border-b border-or-profond/40 pb-1 hover:border-or-profond w-fit"
+              >
+                En savoir plus →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
-  <div id="modal" class="fixed inset-0 z-[2000] hidden items-center justify-center p-4 bg-noir/90 backdrop-blur-sm">
-    <div class="bg-ivoir max-w-4xl w-full relative flex flex-col md:flex-row shadow-2xl animate-in fade-in zoom-in duration-300">
-      <button id="close-modal" class="absolute top-4 right-6 text-noir text-4xl hover:text-or-profond transition-colors z-10">&times;</button>
-      
-      <div class="md:w-1/2 h-64 md:h-auto overflow-hidden">
-        <img id="m-img" src="" alt="" class="w-full h-full object-cover" />
-      </div>
-      
-      <div class="p-8 md:p-12 md:w-1/2 flex flex-col justify-center">
-        <h2 id="m-name" class="font-serif text-3xl italic text-noir mb-2"></h2>
-        <p id="m-role" class="text-or-profond uppercase tracking-widest text-xs font-bold mb-8"></p>
-        <p id="m-desc" class="text-gris-claire leading-relaxed font-light mb-10 text-sm lg:text-base"></p>
-        
-        <div class="border-t border-noir/10 pt-6">
-          <h4 class="text-[10px] uppercase tracking-widest font-bold mb-2">Représentation</h4>
-          <p id="m-perf" class="text-sm italic opacity-80 text-noir"></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </Layout>
-
-<script>
-  // Script ultra-simplifié pour éviter les erreurs
-  const modal = document.getElementById('modal');
-  const mName = document.getElementById('m-name');
-  const mRole = document.getElementById('m-role');
-  const mDesc = document.getElementById('m-desc');
-  const mPerf = document.getElementById('m-perf');
-  const mImg = document.getElementById('m-img') as HTMLImageElement;
-  
-  const triggers = document.querySelectorAll('.js-open-modal');
-  const closeBtns = document.querySelectorAll('#close-modal, #modal');
-
-  triggers.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (modal && mName && mRole && mDesc && mImg && mPerf) {
-        mName.innerText = btn.getAttribute('data-name') || '';
-        mRole.innerText = btn.getAttribute('data-role') || '';
-        mDesc.innerText = btn.getAttribute('data-desc') || '';
-        mPerf.innerText = btn.getAttribute('data-perf') || '';
-        mImg.src = btn.getAttribute('data-img') || '';
-        
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      }
-    });
-  });
-
-  closeBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      if (e.target === btn || btn.id === 'close-modal') {
-        if (modal) {
-          modal.style.display = 'none';
-          document.body.style.overflow = '';
-        }
-      }
-    });
-  });
-</script>

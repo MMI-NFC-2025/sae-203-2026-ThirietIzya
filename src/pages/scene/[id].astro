@@ -1,0 +1,70 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { sceneID, allartistebysceneId } from '../../../backend/backend.mjs';
+
+function getFileUrl(record: any, field: string) {
+  if (!record || !record[field]) return '';
+  return `http://127.0.0.1:8090/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+}
+
+const { id } = Astro.params;
+const record = await sceneID(id);
+if (!record) {
+  throw new Error('Scène introuvable');
+}
+
+const scene = {
+  id: record.id,
+  name: record.nom_scene,
+  description: record.description_scene || '',
+  location: record.localisation || '',
+  capacity: record.capacite ? `${record.capacite} places` : '',
+  img: getFileUrl(record, 'photo_scene'),
+  concertCount: record.Concerts?.length || 0,
+};
+
+// also load artistes performing here
+const artistes = await allartistebysceneId(id);
+---
+
+<Layout title={scene.name}>
+  <section class="relative h-[40vh] flex items-center justify-center text-center overflow-hidden">
+    {scene.img && (
+      <Image
+        src={scene.img}
+        width={1600}
+        height={900}
+        inferSize
+        alt={scene.name}
+        class="absolute inset-0 w-full h-full object-cover"
+        aria-hidden="true"
+      />
+    )}
+    <div class="absolute inset-0 bg-noir/65"></div>
+    <div class="relative z-10 px-6">
+      <h1 class="text-ivoir text-3xl lg:text-5xl font-serif italic leading-tight">{scene.name}</h1>
+      <p class="text-ivoir/80 mt-2">{scene.location}</p>
+    </div>
+  </section>
+
+  <section class="bg-ivoir py-12">
+    <div class="max-w-3xl mx-auto px-6 text-gris-claire">
+      <p class="mb-6">{scene.description}</p>
+      <p class="italic mb-4">Capacité : {scene.capacity}</p>
+      {scene.concertCount > 0 && (
+        <p class="mb-4">Nombre de concerts prévus : {scene.concertCount}</p>
+      )}
+      {artistes.length > 0 && (
+        <div>
+          <h2 class="font-serif text-2xl mb-4">Artistes programmés</h2>
+          <ul class="list-disc pl-5">
+            {artistes.map((a: any) => (
+              <li>{a.prenom_artiste} {a.nom_artiste}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

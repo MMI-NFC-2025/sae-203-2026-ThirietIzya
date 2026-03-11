@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { artisteID } from '../../../backend/backend.mjs';
+
+// helper for file URLs
+function getFileUrl(record: any, field: string) {
+  if (!record || !record[field]) return '';
+  return `http://127.0.0.1:8090/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+}
+
+const { id } = Astro.params;
+const record = await artisteID(id);
+if (!record) {
+  throw new Error('Artiste introuvable');
+}
+
+const artiste = {
+  id: record.id,
+  name: `${record.prenom_artiste || ''} ${record.nom_artiste || ''}`.trim(),
+  role: record.genre_musical || '',
+  description: record.description || '',
+  date: record.date_representation || '',
+  img: getFileUrl(record, 'photo_principale'),
+  gallery: record.galerie_photo || [],
+};
+---
+
+<Layout title={artiste.name}>
+  <section class="relative h-[40vh] flex items-center justify-center text-center overflow-hidden">
+    {artiste.img && (
+      <Image
+        src={artiste.img}
+        alt={artiste.name}
+        class="absolute inset-0 w-full h-full object-cover"
+        aria-hidden="true"
+        inferSize
+        width={1600}
+        height={900}
+      />
+    )}
+    <div class="absolute inset-0 bg-noir/65"></div>
+    <div class="relative z-10 px-6">
+      <h1 class="text-ivoir text-3xl lg:text-5xl font-serif italic leading-tight">{artiste.name}</h1>
+      <p class="text-ivoir/80 mt-2 capitalize">{artiste.role}</p>
+    </div>
+  </section>
+
+  <section class="bg-ivoir py-12">
+    <div class="max-w-3xl mx-auto px-6 text-gris-claire">
+      <p class="mb-6">{artiste.description}</p>
+      {artiste.date && (
+        <p class="italic mb-4">Date de représentation : {new Date(artiste.date).toLocaleDateString('fr-FR', {
+            day: 'numeric', month: 'long', year: 'numeric',
+          })}</p>
+      )}
+      {artiste.gallery.length > 0 && (
+        <div class="grid grid-cols-2 gap-4">
+          {artiste.gallery.map((img: string) => (
+            <Image
+              src={`http://127.0.0.1:8090/api/files/${record.collectionId}/${record.id}/${img}`}
+              alt={artiste.name}
+              class="w-full h-full object-cover rounded-lg"
+              inferSize
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

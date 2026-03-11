@@ -9,12 +9,6 @@
 
     --font-family: 'Arimo Variable', sans-serif;
 }
-@layer components {
-    /* Version robuste de la grille : 12 colonnes, centrée, max-width 1440px */
-    .grille {
-        @apply w-full max-w-[1440px] mx-auto px-6 lg:grid lg:grid-cols-12 lg:gap-8;
-    }
-}
 
 @layer base {
     body {

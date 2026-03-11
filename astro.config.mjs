@@ -13,6 +13,20 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
+  image: {
+    // permit local PocketBase file URLs used by Image component
+    domains: [
+      '127.0.0.1',
+    ],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '8090',
+        pathname: '/api/files/**',
+      },
+    ],
+  },
   adapter: netlify({
     imageCDN: false,
   }),

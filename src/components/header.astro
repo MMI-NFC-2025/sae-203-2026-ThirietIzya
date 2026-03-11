@@ -10,8 +10,8 @@ const navLinks = [
 ];
 ---
 
-<header class="header bg-noir sticky top-0 z-[1000]">
-  <nav class="header__nav flex items-center justify-between px-6 py-4 lg:px-12 max-w-[1440px] mx-auto relative">
+<header class="header bg-noir sticky top-0 z-1000">
+  <nav class="header__nav flex items-center justify-between px-6 py-4 lg:px-12 max-w-360 mx-auto relative">
     
     <a href="/" class="header__logo flex items-center gap-3 no-underline">
       <img src="/logo.png" alt="Logo" class="w-8 h-8 object-contain" />
@@ -22,19 +22,19 @@ const navLinks = [
 
     <button 
       id="menu-toggle" 
-      class="header__menu-toggle flex flex-col justify-center items-center gap-[6px] w-8 h-8 bg-none border-none cursor-pointer lg:hidden z-50"
+      class="header__menu-toggle flex flex-col justify-center items-center gap-1.5 w-8 h-8 bg-none border-none cursor-pointer lg:hidden z-50"
       aria-label="Ouvrir le menu"
     >
-      <span class="header__menu-line w-6 h-[2px] bg-or-profond transition-all duration-300"></span>
-      <span class="header__menu-line w-6 h-[2px] bg-or-profond transition-all duration-300"></span>
-      <span class="header__menu-line w-6 h-[2px] bg-or-profond transition-all duration-300"></span>
+      <span class="header__menu-line w-6 h-0.5 bg-or-profond transition-all duration-300"></span>
+      <span class="header__menu-line w-6 h-0.5 bg-or-profond transition-all duration-300"></span>
+      <span class="header__menu-line w-6 h-0.5 bg-or-profond transition-all duration-300"></span>
     </button>
 
     <ul 
       id="nav-list" 
       class="header__nav-list 
              /* Mobile : Menu plein écran qui descend */
-             fixed top-[64px] left-0 w-full bg-noir flex flex-col items-center 
+             fixed top-16 left-0 w-full bg-noir flex flex-col items-center
              max-h-0 overflow-hidden transition-all duration-500 ease-in-out z-40
              /* Desktop : Menu horizontal classique */
              lg:static lg:flex-row lg:max-h-none lg:w-auto lg:overflow-visible lg:gap-8 lg:bg-transparent"
