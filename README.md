@@ -2,6 +2,7 @@
 - Nom:Thiriet
 - Prénom:Izya
 - url:https://chorussymphonia-thiriet.netlify.app/
+- url PocketBase: https://chorussymphonia.thiriet.optimiseus.fr/_/#/collections?collection=pbc_1299117398&filter=&sort=-%40rowid
 
 Amélioration générale de l'aspect graphique du site.
 Mise en place de page qui ne marche pas ou peu sur le site de base tel que la page "Le festival" ainsi la page "en savoir plus" pour la scène Grande Salle sur la page des scènes. 
