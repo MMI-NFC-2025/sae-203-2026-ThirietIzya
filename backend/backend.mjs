@@ -1,5 +1,5 @@
 import PocketBase from 'pocketbase'; 
-const pb = new PocketBase('');
+const pb = new PocketBase('https://chorussymphonia.thiriet.optimiseus.fr:443');
 
 export async function artistesSorted() { 
     const records = await pb.collection('Artistes').getFullList({ sort: 'date_representation' }); 

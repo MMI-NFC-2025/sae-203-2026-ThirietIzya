@@ -6,7 +6,7 @@ import { artisteID } from '../../../backend/backend.mjs';
 // helper for file URLs
 function getFileUrl(record: any, field: string) {
   if (!record || !record[field]) return '';
-  return `http://127.0.0.1:8090/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+  return `https://chorussymphonia.thiriet.optimiseus.fr:443/api/files/${record.collectionId}/${record.id}/${record[field]}`;
 }
 
 const { id } = Astro.params;
@@ -55,7 +55,7 @@ const artiste = {
         <div class="grid grid-cols-2 gap-4">
           {artiste.gallery.map((img: string) => (
             <img
-              src={`http://127.0.0.1:8090/api/files/${record.collectionId}/${record.id}/${img}`}
+              src={`https://chorussymphonia.thiriet.optimiseus.fr:443/api/files/${record.collectionId}/${record.id}/${img}`}
               alt={artiste.name}
               class="w-full h-full object-cover rounded-lg"
             />

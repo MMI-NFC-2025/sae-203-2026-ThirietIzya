@@ -14,7 +14,7 @@ import { scenesName } from '../../backend/backend.mjs';
 // helper to build a PocketBase file URL
 function getFileUrl(record: any, field: string) {
   if (!record || !record[field]) return '';
-  return `http://127.0.0.1:8090/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+  return `https://chorussymphonia.thiriet.optimiseus.fr:443/api/files/${record.collectionId}/${record.id}/${record[field]}`;
 }
 
 interface Scene {

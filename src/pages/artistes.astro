@@ -8,7 +8,7 @@ import heroImg from '../assets/img/hero_artiste.webp';
 // helper to build an URL for a file stored in PocketBase
 function getFileUrl(record: any, field: string) {
   if (!record || !record[field]) return '';
-  return `http://127.0.0.1:8090/api/files/${record.collectionId}/${record.id}/${record[field]}`;
+  return `https://chorussymphonia.thiriet.optimiseus.fr:443/api/files/${record.collectionId}/${record.id}/${record[field]}`;
 }
 
 // fetch the list from PocketBase; this runs at build time / server-side
